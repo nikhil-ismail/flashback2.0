@@ -1,0 +1,8 @@
+.feed-container img {
+    width: 375px;
+    height: 375px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 5px 5px 5px 5px;
+    cursor: pointer;
+}
