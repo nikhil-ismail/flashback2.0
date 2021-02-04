@@ -35,10 +35,8 @@ const App = () => {
       isSignedIn === true
       ? (
         <div className="home-container">
-          <div className="nav-home">
             <Navigation onRouteChange={handleRouteChange} userId={user.id} />
             <Home userId={user.id} />
-          </div>
         </div>
         )
       : (
