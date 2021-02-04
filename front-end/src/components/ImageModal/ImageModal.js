@@ -46,7 +46,7 @@ const ImageModal = (props) => {
                         {
                         editVisible
                         ?
-                        <EditModal refreshDetails={props.refreshDetails} who={who} where={where} when={when} what={what} closeEdit={closeEdit} imgUrl={props.imgUrl} />
+                        <EditModal who={who} where={where} when={when} what={what} closeEdit={closeEdit} imgUrl={props.imgUrl} />
                         :
                         <TagModal who={who} where={where} when={when} what={what} handleEdit={handleEdit} />
                         }

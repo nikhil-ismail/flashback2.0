@@ -30,12 +30,6 @@ const EditModal = (props) => {
         axios.put('http://localhost:5000/edit', { who, what, where, when, imgUrl })
         .then(res => {
             props.closeEdit();
-            props.refreshDetails({
-                who: who,
-                location: where,
-                time_of_memory: when,
-                what: what
-            })
             console.log(res);
         })
         .catch(err => {

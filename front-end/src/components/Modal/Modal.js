@@ -31,24 +31,41 @@ const Modal = (props) => {
         }
     }
 
+    const resetFields = () => {
+
+        setFile('');
+        setFileSelected(false);
+        setWho('');
+        setWhere('');
+        setWhen('');
+        setWhat('');
+    }
+
     const handleFormSubmit = event => {
-        event.preventDefault();
-        const data = new FormData();
-        console.log(props.userId)
-        data.append('userId', props.userId);
-        data.append('file', file);
-        data.append('who', who);
-        data.append('where', where);
-        data.append('when', when);
-        data.append('what', what);
-        axios.post('http://localhost:5000/post', data)
-        .then(res => {
-            setFileSelected(false);
-            console.log(res.statusText);
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        if (fileSelected) {
+            event.preventDefault();
+            const data = new FormData();
+            console.log(props.userId)
+            data.append('userId', props.userId);
+            data.append('file', file);
+            data.append('who', who);
+            data.append('where', where);
+            data.append('when', when);
+            data.append('what', what);
+            axios.post('http://localhost:5000/post', data)
+            .then(res => {
+                setFileSelected(false);
+                props.closeModal();
+                resetFields();
+                console.log(res.statusText);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
+        else {
+            console.log("No file uploaded");
+        }
     }
 
     const closeModal = event => {
@@ -61,7 +78,7 @@ const Modal = (props) => {
             <div className="modal">
                 <div className="modal-card">
                     <form>
-                        <input type="file" id="file" className="file" onChange={handleFileInput} />
+                        <input type="file" id="file" className="file" name="file" onChange={handleFileInput} />
                         <label className="upload-label" htmlFor="file" value="Upload an Image">Upload an Image</label>
                         <div>
                             {

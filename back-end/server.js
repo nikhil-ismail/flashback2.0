@@ -8,9 +8,10 @@ const knex = require('knex')({
     client: 'pg',
     connection: {
         host: '127.0.0.1',
-        user: 'neelismail',
+        user: '',
         password: '',
-        database: 'yourspace'
+        port: 5434,
+        database: 'flashback'
     }
 });
 
@@ -145,6 +146,7 @@ app.get('/feed/:id', (req, res) => {
     .select('img_path', 'who', 'location', 'time_of_memory', 'what', 'favourite')
     .orderBy('post_id', 'desc')
     .then(paths => {
+        console.log('SELECTED');
         for (let i = 0; i < paths.length; ++i) {
             if (paths[i].img_path === null) {
                 paths.splice(i, 1);
