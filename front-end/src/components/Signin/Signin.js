@@ -51,7 +51,7 @@ const Signin = (props) => {
           <h5>Upload and store your photos and albums.</h5>
         </div>
       </Typing>
-      );
+    );
 
     const AnimatedTypingComponentTwo = () => (
         <Typing>
@@ -60,7 +60,7 @@ const Signin = (props) => {
           <h5>Search memories using natural language.</h5>
         </div>
       </Typing>
-      );
+    );
 
     return (
         <div class="signin">

@@ -1,0 +1,31 @@
+.detail-inputs {
+    display: flex;
+    padding: 10px;
+}
+
+.file-details {
+    padding: 10px;
+    margin: 1rem;
+    outline: none;
+    border: 1px solid;
+    border-radius: 5px;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
+
+.love-close-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.love-edit {
+    margin: 0.8rem;
+    border: 1px solid #006399;
+    padding: 3px 10px;
+    color: #006399;
+    background-color: white;
+    border-radius: 5px;
+    transition: transform .2s ease-out;
+    cursor: pointer;
+}

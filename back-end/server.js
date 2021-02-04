@@ -8,12 +8,11 @@ const knex = require('knex')({
     client: 'pg',
     connection: {
         host: '127.0.0.1',
-        user: '',
+        user: 'neelismail',
         password: '',
         database: 'yourspace'
     }
 });
-
 
 const app = express();
 app.use(cors());
@@ -50,15 +49,11 @@ app.post('/signin', (req, res) => {
 app.post('/register', (req, res) => {
     const {username, email, password} = req.body;
 
-    console.log('IN REGISTER')
-
     knex('users').where({
         'user_name': username
     })
     .select('*')
     .then(rows => {
-
-        console.log("USERNAME CHECKED TO SEE IF IT EXISTS");
         if (rows.length > 0) {
             console.log('Account already exists');
             return res.status(400).send('Account already exists')
@@ -98,7 +93,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single('file');
 
 app.post('/post', (req, res) => {
-
     upload(req, res, err => {
         console.log(req.body);
         if (err instanceof multer.MulterError) {
@@ -113,7 +107,8 @@ app.post('/post', (req, res) => {
             who: req.body.who,
             location: req.body.where,
             time_of_memory: req.body.when,
-            what: req.body.what
+            what: req.body.what,
+            favourite: false
         })
         .into("posts")
         .returning("*")
@@ -126,12 +121,28 @@ app.post('/post', (req, res) => {
     })
 })
 
+app.put('/favourite/:imgurl', (req, res) => {
+    console.log(req);
+    knex('posts')
+    .where({
+        'img_path': req.params.imgurl
+    })
+    .update({
+        favourite: req.body.favourite
+    }, ['favourite'])
+    .then(row => {
+        return res.json(row[0].favourite);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+})
+
 app.get('/feed/:id', (req, res) => {
-    console.log('here');
-   knex('posts').where({
+    knex('posts').where({
         'user_id': parseInt(req.params.id.substring(3))
     })
-    .select('img_path', 'who', 'location', 'time_of_memory', 'what')
+    .select('img_path', 'who', 'location', 'time_of_memory', 'what', 'favourite')
     .orderBy('post_id', 'desc')
     .then(paths => {
         for (let i = 0; i < paths.length; ++i) {
@@ -139,12 +150,32 @@ app.get('/feed/:id', (req, res) => {
                 paths.splice(i, 1);
             }
         }
-        console.log(paths);
         return res.json(paths);
     })
     .catch(err => {
         console.log(err);
     });
+})
+
+app.put('/edit', (req, res) => {
+    console.log(req);
+
+    knex('posts')
+    .where({
+        'img_path': req.body.imgUrl.substring(30)
+    })
+    .update({
+        'who': req.body.who,
+        'location': req.body.where,
+        'time_of_memory': req.body.when,
+        'what': req.body.what
+    }, ['who', 'location', 'time_of_memory', 'what'])
+    .then(rows => {
+        return res.json(rows[0]);
+    })
+    .catch(err => {
+        console.log(err);
+    })
 })
 
 app.listen(5000, () => console.log(`Server listening on Port 5000`));

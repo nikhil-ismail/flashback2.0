@@ -8,13 +8,8 @@ const Home = (props) => {
 
     const apiUrl = `http://localhost:5000/feed/id=${props.userId}`;
     const fetchData = async () => {
-        try {
-            const response = await axios.get(apiUrl);
-            setFeedData(response.data);
-        } catch (err) {
-            console.log('An error occurred');
-            console.log(err);
-        }
+        const response = await axios.get(apiUrl);
+        setFeedData(response.data);
     }
 
     useEffect(() => {
@@ -30,7 +25,7 @@ const Home = (props) => {
                     <p>Upload your first memory!</p>
                     :
                     feedData.map((feedData, index) => {
-                        return <Feed postData={feedData} key={index} />
+                        return <Feed refreshDetails={setFeedData} postData={feedData} key={index} />
                     })
                 }
             </div>

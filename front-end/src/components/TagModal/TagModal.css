@@ -1,0 +1,37 @@
+.details {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 90%;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.fact {
+    background-color: #006399;
+    color: white;
+    border-radius: 15px;
+    margin: 5px;
+    padding: 10px 25px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.love-close-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.love-edit {
+    margin: 0.8rem;
+    border: 1px solid #006399;
+    padding: 3px 10px;
+    color: #006399;
+    background-color: white;
+    border-radius: 5px;
+    transition: transform .2s ease-out;
+    cursor: pointer;
+}

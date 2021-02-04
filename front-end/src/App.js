@@ -6,8 +6,8 @@ import Home from './components/Home/Home';
 import './App.css';
 
 const App = () => {
-  const [user, setUser] = useState({id: 1});
-  const [url, setUrl] = useState('/register');
+  const [user, setUser] = useState({id: 2});
+  const [url, setUrl] = useState('/home');
   const [isSignedIn, setIsSignedIn] = useState(true);
 
   const handleRouteChange = (route) => {
