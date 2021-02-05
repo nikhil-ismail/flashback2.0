@@ -3,6 +3,7 @@ import Register from './components/Register/Register';
 import Signin from './components/Signin/Signin';
 import Navigation from './components/Navigation/Navigation';
 import Home from './components/Home/Home';
+import Favourites from './components/Favourites/Favourites';
 import './App.css';
 
 const App = () => {
@@ -21,6 +22,8 @@ const App = () => {
     } else if (route === 'home') {
       setUrl('/home');
       setIsSignedIn(true);
+    } else if (route == 'favourites') {
+      setUrl('/favourites');
     }
   }
 
@@ -33,16 +36,31 @@ const App = () => {
     <div>
       {
       isSignedIn === true
-      ? (
-        <div className="home-container">
+      ?
+        url === '/home'
+        ?
+          (
+          <div className="home-container">
             <Navigation onRouteChange={handleRouteChange} userId={user.id} />
             <Home userId={user.id} />
-        </div>
-        )
-      : (
+          </div>
+          )
+        :
+          (
+          <div className="home-container">
+            <Navigation onRouteChange={handleRouteChange} userId={user.id} />
+            <Favourites onRouteChange={handleRouteChange} userId={user.id} />
+          </div>
+          )
+      :
         url === '/register'
-        ? <Register onRouteChange={handleRouteChange} /> 
-        : <Signin onRouteChange={handleRouteChange} onSuccessfulSignin={handleSuccessfulSignin} />
+        ?
+          (
+          <Register onRouteChange={handleRouteChange} /> 
+          )
+        : 
+        (
+        <Signin onRouteChange={handleRouteChange} onSuccessfulSignin={handleSuccessfulSignin} />
         )
       }
     </div>

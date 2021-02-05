@@ -28,6 +28,16 @@
     margin: 0.75rem;
 }
 
+.flashback {
+    margin: 0.8rem;
+    cursor: pointer;
+    border: 1px solid #006399;
+    color: white;
+    background-color: #006399;
+    border-radius: 5px; 
+    padding: 0.5px 25px;
+}
+
 .upload {
     margin: 0.8rem;
     border: 1px solid #006399;
@@ -36,10 +46,10 @@
     border-radius: 5px;
 }
 
-.nav-bar p {
+#signout {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 7.5%;
+    margin-right: 100%;
     cursor: pointer;
     background-color: white;
     color: #006399;

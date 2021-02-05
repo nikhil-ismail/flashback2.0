@@ -9,6 +9,7 @@ const Modal = (props) => {
     const [where, setWhere] = useState();
     const [when, setWhen] = useState();
     const [what, setWhat] = useState();
+    const userId = props.userId;
 
     const handleFileInput = event => {
         event.preventDefault();
@@ -42,17 +43,9 @@ const Modal = (props) => {
     }
 
     const handleFormSubmit = event => {
+        event.preventDefault();
         if (fileSelected) {
-            event.preventDefault();
-            const data = new FormData();
-            console.log(props.userId)
-            data.append('userId', props.userId);
-            data.append('file', file);
-            data.append('who', who);
-            data.append('where', where);
-            data.append('when', when);
-            data.append('what', what);
-            axios.post('http://localhost:5000/post', data)
+            axios.post('http://localhost:5000/post', {userId, file, who, where, when, what})
             .then(res => {
                 setFileSelected(false);
                 props.closeModal();

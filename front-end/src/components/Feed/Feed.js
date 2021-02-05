@@ -6,7 +6,7 @@ const Feed = (props) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const imgUrl = `http://localhost:5000/uploads/${props.postData.img_path}`;
+  const imgUrl = `http://localhost:5000/uploads/${props.imgUrl}`;
 
   const openModal = () => {
     setShowModal(true);
@@ -19,7 +19,7 @@ const Feed = (props) => {
   return (
       <div className="feed-container">
         <img src={imgUrl} alt={props.imgPath} onClick={openModal} />
-        <ImageModal showModal={showModal} closeModal={closeModal} imgUrl={imgUrl} postData={props.postData} />
+        <ImageModal showModal={showModal} closeModal={closeModal} imgUrl={imgUrl} />
       </div>
   );
 }

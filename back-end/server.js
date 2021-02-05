@@ -146,13 +146,47 @@ app.get('/feed/:id', (req, res) => {
     .select('img_path', 'who', 'location', 'time_of_memory', 'what', 'favourite')
     .orderBy('post_id', 'desc')
     .then(paths => {
-        console.log('SELECTED');
         for (let i = 0; i < paths.length; ++i) {
             if (paths[i].img_path === null) {
                 paths.splice(i, 1);
             }
         }
         return res.json(paths);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+})
+
+app.get('/favourites/:id', (req, res) => {
+    knex('posts').where({
+        'user_id': parseInt(req.params.id.substring(3)),
+        'favourite': true
+    })
+    .select('img_path', 'who', 'location', 'time_of_memory', 'what', 'favourite')
+    .orderBy('post_id', 'desc')
+    .then(paths => {
+        for (let i = 0; i < paths.length; ++i) {
+            if (paths[i].img_path === null) {
+                paths.splice(i, 1);
+            }
+        }
+        return res.json(paths);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+})
+
+app.get('/details/:imgUrl', (req, res) => {
+    knex('posts').where({
+        'img_path': req.params.imgUrl
+    })
+    .select('who', 'location', 'time_of_memory', 'what', 'favourite')
+    .then(paths => {
+        console.log('first')
+        console.log(paths[0]);
+        return res.json(paths[0]);
     })
     .catch(err => {
         console.log(err);

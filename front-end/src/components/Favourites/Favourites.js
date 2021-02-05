@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Feed from '../Feed/Feed';
-import './Home.css';
+import './Favourites.css';
 
-const Home = (props) => {
+const Favourites = (props) => {
     const [imgUrls, setImgUrls] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/feed/id=${props.userId}`)
+        axios.get(`http://localhost:5000/favourites/id=${props.userId}`)
         .then(response => {
             setImgUrls(response.data);
         })
@@ -31,4 +31,4 @@ const Home = (props) => {
     );
 }
 
-export default Home;
+export default Favourites;
