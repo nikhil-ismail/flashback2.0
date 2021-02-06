@@ -48,7 +48,7 @@ app.post('/signin', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-    const {username, email, password} = req.body;
+    const {name, username, email, password} = req.body;
 
     knex('users').where({
         'user_name': username
@@ -66,6 +66,7 @@ app.post('/register', (req, res) => {
                 }
 
                 knex.insert({
+                    name: name,
                     user_name: username,
                     email: email,
                     password: hash

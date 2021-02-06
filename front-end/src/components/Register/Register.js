@@ -3,10 +3,15 @@ import './Register.css';
 import Typing from 'react-typing-animation';
 
 const Register = (props) => {
+    const [_name, setName] = useState('');
     const [_username, setUsername] = useState('');
     const [_email, setEmail] = useState('');
     const [_password, setPassword] = useState('');
     const [_confirmpassword, setConfirmPassword] = useState('');
+
+    const onNameChange = (event) => {
+        setName(event.target.value);
+    }
 
     const onUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -32,6 +37,7 @@ const Register = (props) => {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
+                    name: _name,
                     username: _username,
                     email: _email,
                     password: _password,
@@ -44,6 +50,7 @@ const Register = (props) => {
                 props.onRouteChange('signin');
             } else {
                 console.log('Email entered already exists');   
+                setName('');
                 setUsername('');
                 setEmail('');
                 setPassword('');
@@ -52,6 +59,7 @@ const Register = (props) => {
         } catch (err) {
             console.log(err);
             console.log('An error occurred registering');
+            setName('');
             setUsername('');
             setEmail('');
             setPassword('');
@@ -84,7 +92,16 @@ const Register = (props) => {
                         <div className="register-form-body">
                             <input
                                 type="text"
-                                placeholder="Enter a username" 
+                                placeholder="Enter full name" 
+                                value={_name}
+                                name="name"
+                                required
+                                className="register-form-input"
+                                onChange={onNameChange}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Enter username" 
                                 value={_username}
                                 name="username"
                                 required
@@ -93,7 +110,7 @@ const Register = (props) => {
                             />
                             <input
                                 type="email"
-                                placeholder="Enter an email"
+                                placeholder="Enter email"
                                 value={_email}
                                 name="email"
                                 required
@@ -102,7 +119,7 @@ const Register = (props) => {
                             />
                             <input
                                 type="password"
-                                placeholder="Enter a Password"
+                                placeholder="Enter password"
                                 value={_password}
                                 name="password"
                                 required
@@ -111,7 +128,7 @@ const Register = (props) => {
                             />
                             <input
                                 type="password"
-                                placeholder="Confirm Your Password"
+                                placeholder="Confirm password"
                                 value={_confirmpassword}
                                 name="cpassword"
                                 required

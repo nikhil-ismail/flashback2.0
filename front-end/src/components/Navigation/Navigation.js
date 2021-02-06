@@ -36,12 +36,6 @@ const Navigation = (props) => {
                             className="upload"
                             onClick={() => props.onRouteChange('favourites')}
                         />
-                        <input
-                            type="button"
-                            value="Tagged"
-                            className="upload"
-                            onClick={() => props.onRouteChange('tagged')}
-                        />
                         <Modal showModal={showModal} closeModal={closeModal} userId={props.userId} />
                     </div>
                 </div>
