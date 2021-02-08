@@ -52,7 +52,7 @@
     padding: 10px;
     outline: none;
     border: none;
-    border: solid #3333cc;
+    border: solid #420dab;
     border-radius: 30px;
     background-color: #fffef7;
     font-size: 1rem;
@@ -63,7 +63,7 @@
     padding: 15px 40px;
     border-radius: 10px;
     /*background-image: linear-gradient(#4d4dff,#bf80ff);*/
-    background-color: #3333cc;
+    background-color: #420dab;
     color: white;
     border: none;
     font-size: 1rem;
@@ -73,32 +73,17 @@
     margin-top: 2rem;
 }
 
-.google {
-    color: black;
+.signin-form-register {
+    margin-top: 10px;
+    padding: 15px 40px;
+    border-radius: 10px;
     background-color: white;
-    padding: 10px;
-    border-radius: 20px;
+    color:  #420dab;
+    border: 2px solid #4233cc;
+    font-size: 1rem;
 }
 
-.facebook {
-    color: white;
-    background-color: #4040bf;
-    padding: 10px;
-    border-radius: 20px;
-}
-
-.apple {
-    color: black;
-    background-color: white;
-    padding: 10px;
-    border-radius: 20px;
-}
-
-.click {
-    cursor: pointer;
-}
-
-#flashback {
+.flashback {
     font-family: "Billion Dreams", serif;
     font-size: 75px;
 }

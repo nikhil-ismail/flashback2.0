@@ -94,33 +94,24 @@ const Signin = (props) => {
                         >
                             Sign In
                         </button>
-                        <p
-                            className="signin-link"
-                            onClick={() => props.onRouteChange('register')}
-                        >
-                            <div className="click">Don't have an account? Sign up</div>
-                        </p>
                     </div>
                 </form>
             </div>
             <div className="signin-form-card-right">
-                <h1><div id="flashback">Flashback</div></h1>
+                <h1><div className="flashback">Flashback</div></h1>
                 <br />
-                <AnimatedTypingComponent />
-                <AnimatedTypingComponentTwo />
+                <h5>Upload and store your photos.</h5>
+                <h5>Search memories using natural language.</h5>
                 <br />
-                <br />
-                <div className="google">
-                    Sign in with Google
-                </div>
-                <br />
-                <div className="facebook">
-                    Sign in with Facebook
-                </div>
-                <br />
-                <div className="apple">
-                    Sign in with Apple
-                </div>
+                <h5 className="signin-link">Don't have an account?</h5>
+                <button
+                    variant="primary"
+                    type="submit"
+                    className="signin-form-register"
+                    onClick={() => props.onRouteChange('register')}
+                    >
+                    Register
+                </button>
             </div>
         </div>
     );

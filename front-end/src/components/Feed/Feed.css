@@ -2,7 +2,7 @@
     width: 375px;
     height: 375px;
     object-fit: cover;
-    border-radius: 5px;
-    margin: 5px 5px 5px 5px;
+    border-radius: 6px;
+    margin: 2px 2px 2px 2px;
     cursor: pointer;
 }

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import './Register.css';
-import Typing from 'react-typing-animation';
 
 const Register = (props) => {
     const [_name, setName] = useState('');
@@ -67,23 +66,6 @@ const Register = (props) => {
         }
     }
 
-    const AnimatedTypingComponent = () => (
-        <Typing>
-        <div>
-          <h5>Upload and store your photos and albums.</h5>
-        </div>
-      </Typing>
-    );
-
-      const AnimatedTypingComponentTwo = () => (
-        <Typing>
-        <div>
-          <Typing.Delay ms={4000} />
-          <h5>Search memories using natural language.</h5>
-        </div>
-      </Typing>
-    );
-
     return (
         <div className="register">
                 <div className="register-form-card-left">
@@ -143,33 +125,24 @@ const Register = (props) => {
                             >
                                 Create Account
                             </button>
-                            <p
-                                className="register-link"
-                                onClick={() => props.onRouteChange('signin')}
-                            >
-                                <div className="click">Already have an account? Sign In</div>
-                            </p>
                         </div>
                     </form>
                 </div>
                 <div className="register-form-card-right">
-                    <h1><div id="flashback">Flashback</div></h1>
+                    <h1><div className="flashback">Flashback</div></h1>
                     <br />
-                    <AnimatedTypingComponent />
-                    <AnimatedTypingComponentTwo />
+                    <h5>Upload and store your photos.</h5>
+                    <h5>Search memories using natural language.</h5>
                     <br />
-                    <br />
-                    <div className="google">
-                        Sign up with Google
-                    </div>
-                    <br />
-                    <div className="facebook">
-                        Sign up with Facebook
-                    </div>
-                    <br />
-                    <div className="apple">
-                        Sign up with Apple
-                    </div>
+                    <h5 className="register-link">Already have an account?</h5>
+                    <button
+                    variant="primary"
+                    type="submit"
+                    className="register-form-signin"
+                    onClick={() => props.onRouteChange('signin')}
+                    >
+                    Sign In
+                    </button>
                 </div>
         </div>
     );

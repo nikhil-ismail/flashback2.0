@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import fullheart from './fullheart.png';
+import emptyheart from './emptyheart.png';
 import './TagModal.css';
 
 const TagModal = (props) => {
@@ -60,7 +62,7 @@ const TagModal = (props) => {
                         </div>
                     </div>
                     <div className="tagmodal-btns">
-                        <div>
+                        <div className="favourite-toggle">
                             {
                                 favourite
                                 ?

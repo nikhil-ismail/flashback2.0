@@ -215,4 +215,16 @@ app.put('/edit', (req, res) => {
     })
 })
 
+app.delete('/delete/:imgUrl', (req, res) => {
+    knex('posts')
+    .where({
+        'img_path': req.params.imgUrl
+    })
+    .del()
+    .then(rows => {
+        res.send("Image deleted")
+    })
+    .catch(err => console.log(err));
+})
+
 app.listen(5000, () => console.log(`Server listening on Port 5000`));
