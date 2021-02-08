@@ -1,32 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Feed from '../Feed/Feed';
 import './Search.css';
 
-const SearchBar = (props) => {
+const Search = (props) => {
+    const query = props.query;
+    const [imgUrls, setImgUrls] = useState(props.results);
 
-    const handleChange = (event) => {
-
-    }
+    console.log(imgUrls);
 
     return (
-        <div className="search">
-            <form>
-                <input 
-                    placeholder="Search users, tweets, and hashtags"
-                    type="text"
-                    name="search"
-                    className="search-bar"
-                    onChange={handleChange} />
-                <br />
-                <button
-                    type="submit"
-                    name="action"
-                    className="search-button"
-                >
-                    Search
-                </button>
-            </form>
+        <div className="feed-container-a">
+            <div className="feed">
+                {
+                    imgUrls.length === 0
+                    ?
+                    <p>No results for your search</p>
+                    :
+                    imgUrls.map((imgUrl, index) => {
+                        return <Feed imgUrl={imgUrl} key={index} />
+                    })
+                }
+            </div>
         </div>
     );
 }
 
-export default SearchBar;
+export default Search;

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import fullheart from './fullheart.png';
 import emptyheart from './emptyheart.png';
+import edit from './edit.png';
 import './TagModal.css';
 
 const TagModal = (props) => {
@@ -45,8 +46,8 @@ const TagModal = (props) => {
                 <div>
                     <div className="details">
                         <div className="w-container">
-                            <div className="intro">Tagged</div>
-                            <div className="value">{who}</div>
+                            <span className="intro" onClick={alert('click')}>Tagged</span>
+                            <span className="value">{who}</span>
                         </div>
                         <div className="w-container">
                             <span className="intro">Where</span>
@@ -62,16 +63,22 @@ const TagModal = (props) => {
                         </div>
                     </div>
                     <div className="tagmodal-btns">
-                        <div className="favourite-toggle">
+                        <div className="favourite-container">
                             {
                                 favourite
                                 ?
-                                <button className="favourite-btn" onClick={handleLove}>Favourited!</button>
+                                <div className="favourites-toggle">
+                                    <img src={fullheart} style={{height:'40%', width:'40%'}} onClick={handleLove} />
+                                </div>
                                 :
-                                <button className="not-favourite-btn" onClick={handleLove}>Favourite</button>
-                            }
-                            <button className="edit-btn" onClick={props.handleEdit}>Edit</button>
-                            <button className="edit-btn" onClick={props.handleEdit}>Share</button>
+                                <div className="favourites-toggle">
+                                    <img src={emptyheart} style={{height:'40%', width:'40%'}} onClick={handleLove} />
+                                </div>                            }
+                        </div>
+                        <div className="edit-container">
+                            <div className="edit-toggle">
+                                <img src={edit} style={{height:'40%', width:'40%'}} onClick={props.handleEdit} />
+                            </div>
                         </div>
                     </div>
                 </div>

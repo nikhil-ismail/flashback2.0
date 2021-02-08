@@ -34,9 +34,9 @@
     border-bottom-left-radius: 25px;
     padding: 1rem;
     width: 30%;
-    background-color: #006399;
+    background-color: #7070db;
     color: white;
-    border: 1px solid #006399;
+    border: 1px solid #7070db;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -63,31 +63,9 @@
 
 .edit-btn {
     margin: 0.8rem;
-    border: 1px solid #006399;
+    border: 1px solid #7070db;
     padding: 3px 10px;
-    color: #006399;
-    background-color: white;
-    border-radius: 5px;
-    transition: transform .2s ease-out;
-    cursor: pointer;
-}
-
-.favourite-btn {
-    margin: 0.8rem;
-    border: 1px solid #006399;
-    padding: 3px 10px;
-    color: white;
-    background-color: #006399;
-    border-radius: 5px;
-    transition: transform .2s ease-out;
-    cursor: pointer;
-}
-
-.not-favourite-btn {
-    margin: 0.8rem;
-    border: 1px solid #006399;
-    padding: 3px 10px;
-    color: #006399;
+    color: #7070db;
     background-color: white;
     border-radius: 5px;
     transition: transform .2s ease-out;
@@ -101,7 +79,7 @@
 
 .loading-message {
     border-radius: 25px;
-    border: 1px solid #006399;
-    color: #006399;
+    border: 1px solid #7070db;
+    color: #7070db;
     padding: 10px;
 }

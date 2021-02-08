@@ -18,7 +18,7 @@ const Feed = (props) => {
 
   return (
       <div className="feed-container">
-        <img src={imgUrl} alt={props.imgPath} onClick={openModal} />
+        <img id="shadow" src={imgUrl} alt={props.imgPath} onClick={openModal} />
         <ImageModal showModal={showModal} closeModal={closeModal} imgUrl={imgUrl} />
       </div>
   );

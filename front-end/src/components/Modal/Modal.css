@@ -33,9 +33,9 @@ form {
     width: 200px;
     height: 50px;
     margin: 2px 0;
-    border: solid 1px #006399;
+    border: solid 1px #7070db;
     border-radius: 5px;
-    color: #006399;
+    color: #7070db;
     font-size: 1rem;
     font-weight: bold;
     transition: transform .2s ease-out;
@@ -79,7 +79,7 @@ form {
     color: #fff;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #006399;
+    background-color: #7070db;
     transition: transform .2s ease-out;
 }
 
@@ -89,8 +89,8 @@ form {
 
 .upload-close {
     margin: 0.8rem;
-    border: 1px solid #006399;
-    color: #006399;
+    border: 1px solid #7070db;
+    color: #7070db;
     background-color: white;
     border-radius: 5px;
     transition: transform .2s ease-out;

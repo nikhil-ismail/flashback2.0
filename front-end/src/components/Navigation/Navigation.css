@@ -1,6 +1,14 @@
+img {
+    transition: transform .3s;
+}
+
+.nav-bar img:hover {
+    transform: scale(0.8);
+}
+
 .nav-bar-container {
     background-color: #7070db;
-    height: 80px;
+    height: 85px;
     display: flex;
     align-items: center;
     width: 100%;
@@ -64,30 +72,27 @@
 .flashback-title {
     cursor: pointer;
     color: white;
-    padding-left: 75px;
+    padding-left: 50px;
     padding-right: 30px;
     padding-top: 7px;
     font-size: 55px;
+    transition: transform .5s;
 }
 
-.upload {
-    margin: 0.8rem;
-    border: 1px solid #4233cc;
-    color: white;
-    background-color: #4233cc;
-    border-radius: 5px;
+.flashback-title:hover {
+    transform: scale(0.9);
 }
 
 #signout {
     border-radius: 10px;
-    margin-left: 50px;
+    margin-left: 55px;
     background-color: white;
     color:  #420dab;
     border: 2px solid #4233cc;
-    padding: 8px 16px;
-    transition: ease-in;
+    padding: 10px 16px;
+    transition: transform .5s;
 }
 
-.nav-bar p:hover {
-    transform: scale(0.95);
-}
+#signout:hover {
+    transform: scale(0.9);
+  }

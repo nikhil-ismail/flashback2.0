@@ -10,7 +10,7 @@ const knex = require('knex')({
         host: '127.0.0.1',
         user: '',
         password: '',
-        port: 5434,
+        port: '5434',
         database: 'flashback'
     }
 });
@@ -48,7 +48,7 @@ app.post('/signin', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-    const {name, username, email, password} = req.body;
+    const {username, email, password} = req.body;
 
     knex('users').where({
         'user_name': username
@@ -66,7 +66,6 @@ app.post('/register', (req, res) => {
                 }
 
                 knex.insert({
-                    name: name,
                     user_name: username,
                     email: email,
                     password: hash
@@ -96,7 +95,6 @@ const upload = multer({ storage: storage }).single('file');
 
 app.post('/post', (req, res) => {
     upload(req, res, err => {
-        console.log(req.body);
         if (err instanceof multer.MulterError) {
             return res.status(500).json(err);
         } else if (err) {
@@ -124,7 +122,6 @@ app.post('/post', (req, res) => {
 })
 
 app.put('/favourite/:imgurl', (req, res) => {
-    console.log(req);
     knex('posts')
     .where({
         'img_path': req.params.imgurl
@@ -144,7 +141,7 @@ app.get('/feed/:id', (req, res) => {
     knex('posts').where({
         'user_id': parseInt(req.params.id.substring(3))
     })
-    .select('img_path', 'who', 'location', 'time_of_memory', 'what', 'favourite')
+    .select('img_path')
     .orderBy('post_id', 'desc')
     .then(paths => {
         for (let i = 0; i < paths.length; ++i) {
@@ -153,6 +150,20 @@ app.get('/feed/:id', (req, res) => {
             }
         }
         return res.json(paths);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+})
+
+app.get('/details/:imgUrl', (req, res) => {
+    knex('posts').where({
+        'img_path': req.params.imgUrl
+    })
+    .select('who', 'location', 'time_of_memory', 'what', 'favourite')
+    .then(paths => {
+        console.log(paths[0]);
+        return res.json(paths[0]);
     })
     .catch(err => {
         console.log(err);
@@ -179,24 +190,7 @@ app.get('/favourites/:id', (req, res) => {
     });
 })
 
-app.get('/details/:imgUrl', (req, res) => {
-    knex('posts').where({
-        'img_path': req.params.imgUrl
-    })
-    .select('who', 'location', 'time_of_memory', 'what', 'favourite')
-    .then(paths => {
-        console.log('first')
-        console.log(paths[0]);
-        return res.json(paths[0]);
-    })
-    .catch(err => {
-        console.log(err);
-    });
-})
-
 app.put('/edit', (req, res) => {
-    console.log(req);
-
     knex('posts')
     .where({
         'img_path': req.body.imgUrl.substring(30)
@@ -226,5 +220,76 @@ app.delete('/delete/:imgUrl', (req, res) => {
     })
     .catch(err => console.log(err));
 })
+
+ const getResults = (id, term) => {
+    return new Promise((resolve, reject) => {
+        knex('posts')
+        .where({user_id: id})
+        .andWhere(function() {
+            this.where('who', 'ilike', `%${term}%`)
+            .orWhere('location', 'ilike', `%${term}%`)
+            .orWhere('time_of_memory', 'ilike', `%${term}%`)
+            .orWhere('what', 'ilike', `%${term}%`)
+        })
+        .select('post_id')
+        .then(response => {
+            resolve(response);
+        })
+        .catch(err => reject(err))
+    })
+}
+
+const getImgUrl = (postId) => {
+    return new Promise((resolve, reject) => {
+        knex('posts')
+        .where({post_id: postId})
+        .select('img_path')
+        .then(imgPath => {
+            resolve(imgPath);
+        })
+        .catch(err => reject(err))
+    })
+}
+
+app.get('/search/:id', async (req, res) => {
+    const query = req.query.search.split(" ");
+    const searchResults = [];
+
+    for (const term of query) {
+        const results = await getResults(req.params.id, term)
+        results.map(result => {
+            searchResults.push(result.post_id);
+        })
+    }
+        
+    if (searchResults.length > 0) {
+        let frequency = {};
+
+        searchResults.forEach(postId => {
+            frequency[postId] = 0;
+        })
+
+        const uniqueIds = searchResults.filter(postId => {
+            return ++frequency[postId] === 1;
+        })
+
+        const sortedUniqueIds = uniqueIds.sort((a, b) => {
+            return frequency[b] - frequency[a]
+        })
+
+        const imgUrls = [];
+
+        for (const id of sortedUniqueIds) {
+            const imgUrl = await getImgUrl(id);
+            imgUrl.map(result => {
+                imgUrls.push(result.img_path);
+            })
+        }
+
+        return res.status(200).json(imgUrls);
+    }
+    return res.status(200).send([]);
+})
+
 
 app.listen(5000, () => console.log(`Server listening on Port 5000`));

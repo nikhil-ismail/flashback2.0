@@ -29,10 +29,11 @@ const Navigation = (props) => {
 
     const handleSearch = event => {
         if (event.key === 'Enter') {
-            console.log(query);
             axios.get(`http://localhost:5000/search/${props.userId}?search=${query}`, { params: {query: query} })
             .then(response => {
                 console.log(response.data);
+                props.onSearch(response.data)
+                props.onRouteChange('search')
             })
             .catch(err => console.log(err))
         }
@@ -56,7 +57,7 @@ const Navigation = (props) => {
                     </div>
                     <div className="nav-buttons">
                         <div className="upload-container">
-                            <img src={Upload} id="upload" height="40%" width="70%" onClick={openModal} />
+                            <img src={Upload} id="upload" height="40%" width="60%" onClick={openModal} />
                         </div>
                         <Modal showModal={showModal} closeModal={closeModal} userId={props.userId} />
                         <div className="favourites-container">
