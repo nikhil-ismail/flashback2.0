@@ -15,18 +15,16 @@ const Home = (props) => {
     }, [imgUrls.length])
 
     return (
-        <div className="feed-container-a">
-            <div className="feed">
-                {
-                    imgUrls.length === 0
-                    ?
-                    <p>Upload your first memory!</p>
-                    :
-                    imgUrls.map((imgUrl, index) => {
-                        return <Feed imgUrl={imgUrl.img_path} key={index} />
-                    })
-                }
-            </div>
+        <div className="feed-container">
+            {
+                imgUrls.length === 0
+                ?
+                <p>Upload your first memory!</p>
+                :
+                imgUrls.map((imgUrl, index) => {
+                    return <Feed onRouteChange={props.onRouteChange} onSearch={props.handleSearch} imgUrl={imgUrl.img_path} key={index} />
+                })
+            }
         </div>
     );
 }

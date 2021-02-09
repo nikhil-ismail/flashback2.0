@@ -100,3 +100,7 @@ form {
     transform: scale(0.95);
 }
 
+#no-file {
+    color: red;
+    margin-top: 10px;
+}

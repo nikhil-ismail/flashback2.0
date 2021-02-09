@@ -9,8 +9,8 @@ import './App.css';
 
 const App = () => {
   const [user, setUser] = useState({id: 2});
-  const [url, setUrl] = useState('/home');
-  const [isSignedIn, setIsSignedIn] = useState(true);
+  const [url, setUrl] = useState('/signin');
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const [searchResults, setSearchResults] = useState('');
 
   const handleRouteChange = (route) => {
@@ -66,7 +66,7 @@ const App = () => {
           (
           <div className="home-container">
             <Navigation onRouteChange={handleRouteChange} onSearch={handleSearch} userId={user.id} />
-            <Home userId={user.id} />
+            <Home onRouteChange={handleRouteChange} onSearch={handleSearch} userId={user.id} />
           </div>
           )
       :

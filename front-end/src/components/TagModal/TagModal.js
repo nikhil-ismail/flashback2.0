@@ -24,6 +24,46 @@ const TagModal = (props) => {
         })
     }
 
+    const handleWho = (event) => {
+        axios.get(`http://localhost:5000/search/${props.userId}?search=${who}`, { params: {query: who} })
+            .then(response => {
+                console.log(response.data);
+                props.onSearch(response.data)
+                props.onRouteChange('search')
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handleWhere = (event) => {
+        axios.get(`http://localhost:5000/search/${props.userId}?search=${where}`, { params: {query: where} })
+            .then(response => {
+                console.log(response.data);
+                props.onSearch(response.data)
+                props.onRouteChange('search')
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handleWhen = (event) => {
+        axios.get(`http://localhost:5000/search/${props.userId}?search=${when}`, { params: {query: when} })
+            .then(response => {
+                console.log(response.data);
+                props.onSearch(response.data)
+                props.onRouteChange('search')
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handleWhat = (event) => {
+        axios.get(`http://localhost:5000/search/${props.userId}?search=${what}`, { params: {query: what} })
+            .then(response => {
+                console.log(response.data);
+                props.onSearch(response.data)
+                props.onRouteChange('search')
+            })
+            .catch(err => console.log(err))
+    }
+
     useEffect(() => {
         axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`)
         .then(response => {
@@ -46,20 +86,28 @@ const TagModal = (props) => {
                 <div>
                     <div className="details">
                         <div className="w-container">
-                            <span className="intro" onClick={alert('click')}>Tagged</span>
-                            <span className="value">{who}</span>
+                            <span className="intro">Tagged</span>
+                            <span className="value">
+                                <p onClick={handleWho}>{who}</p>
+                            </span>
                         </div>
                         <div className="w-container">
                             <span className="intro">Where</span>
-                            <span className="value">{where}</span>
+                            <span className="value">
+                               <p onClick={handleWhere}>{where}</p> 
+                            </span>
                         </div>
                         <div className="w-container">
                             <span className="intro">When</span>
-                            <span className="value">{when}</span>
+                            <span className="value">
+                                <p onClick={handleWhen}>{when}</p>
+                            </span>
                         </div>
                         <div className="w-container">
                             <span className="intro">What</span>
-                            <span className="value">{what}</span>
+                            <span className="value">
+                                <p onClick={handleWhat}>{what}</p>
+                            </span>
                         </div>
                     </div>
                     <div className="tagmodal-btns">

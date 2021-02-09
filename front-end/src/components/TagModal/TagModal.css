@@ -56,14 +56,12 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 }
 
 .favourite-container {
     height: 100%;
     width: 50%;
-    display: flex;
-    justify-content: center;
-    align-self: flex-start;
 }
 
 .favourites-toggle {
@@ -80,9 +78,7 @@
 .edit-container {
     height: 100%;
     width: 50%;
-    display: flex;
-    justify-content: center;
-    align-self: flex-start;
+
 }
 
 .edit-toggle {

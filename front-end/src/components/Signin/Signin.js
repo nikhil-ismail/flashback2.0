@@ -5,6 +5,7 @@ import Typing from 'react-typing-animation';
 const Signin = (props) => {
     const [_username, setUsername] = useState('');
     const [_password, setPassword] = useState('');
+    const [error, setError] = useState(null);
 
     const onUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -16,6 +17,10 @@ const Signin = (props) => {
 
     const handleSignin = async (event) => {
         event.preventDefault();
+
+        if (_username === '' || _password === '') {
+            setError(true);
+        }
 
         try {
             const response = await fetch('http://localhost:5000/signin', {
@@ -32,73 +37,62 @@ const Signin = (props) => {
                 props.onRouteChange('home');
                 props.onSuccessfulSignin(json.user_id);
                 console.log('User successfully signed in');
+                setError(false);
             } else {
                 console.log('Unable to sign in user');
+                setError(true)
                 setUsername('');
                 setPassword('');
             }
         } catch (err) {
             console.log('An error occurred signing in');
             console.log(err);
+            setError(true);
             setUsername('');
             setPassword('');
         }
     }
-
-    const AnimatedTypingComponent = () => (
-        <Typing>
-        <div>
-          <h5>Upload and store your photos and albums.</h5>
-        </div>
-      </Typing>
-    );
-
-    const AnimatedTypingComponentTwo = () => (
-        <Typing>
-        <div>
-          <Typing.Delay ms={4000} />
-          <h5>Search memories using natural language.</h5>
-        </div>
-      </Typing>
-    );
 
     return (
         <div class="signin">
             <div class="signin-form-card-left">
                 <h1>Welcome Back</h1>
                 <form>
-                    <div className="signin-form-body">
-                        <input
-                            type="text"
-                            placeholder="Username"
-                            value={_username}
-                            name="username"
-                            required
-                            className="signin-form-input"
-                            onChange={onUsernameChange}
-                        />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={_password}
-                            name="password"
-                            required
-                            className="signin-form-input"
-                            onChange={onPasswordChange}
-                        />
-                        <button
-                            variant="primary"
-                            type="submit"
-                            className="signin-form-button"
-                            onClick={handleSignin}
-                        >
-                            Sign In
-                        </button>
-                    </div>
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        value={_username}
+                        name="username"
+                        required
+                        className="signin-form-input"
+                        onChange={onUsernameChange}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={_password}
+                        name="password"
+                        required
+                        className="signin-form-input"
+                        onChange={onPasswordChange}
+                    />
+                    <button
+                        variant="primary"
+                        type="submit"
+                        className="signin-form-button"
+                        onClick={handleSignin}
+                    >
+                        Sign In
+                    </button>
+                    <br />
+                    {
+                        error &&
+                        <p id="error">Invalid username or password</p>
+                    }
                 </form>
             </div>
             <div className="signin-form-card-right">
-                <h1><div className="flashback">Flashback</div></h1>
+                <h1 className="flashback"><i>Flashback</i></h1>
                 <br />
                 <h5>Upload and store your photos.</h5>
                 <h5>Search memories using natural language.</h5>

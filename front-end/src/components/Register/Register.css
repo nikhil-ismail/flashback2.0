@@ -10,10 +10,11 @@
 .register-form-card-left {
     background-color: white;
     width: 40%;
-    height: 80%;
+    height: 85%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 5rem;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
@@ -22,26 +23,22 @@
 .register-form-card-right {
     background-color: #7070db;
     width: 40%;
-    height: 80%;
+    height: 85%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 5rem;
     color: white;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
 }
 
-.register-form-card h1 {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-}
-
 .register-form-body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    align-content: flex-start;
 }
 
 .register-form-input {
@@ -58,22 +55,13 @@
 }
 
 .register-form-button {
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 15px 40px;
     border-radius: 10px;
     background-color: #420dab;
     color: white;
     border: none;
     font-size: 1rem;
-}
-
-.register-link {
-    margin-top: 2rem;
-}
-
-.info-container {
-    width: 50%;
-    height: 100vh;
 }
 
 .register-form-signin {
@@ -86,7 +74,14 @@
     font-size: 1rem;
 }
 
-.flashback {
+#flashback {
     font-family: "Billion Dreams", serif;
     font-size: 75px;
+}
+
+#error {
+    color: red;
+    border-radius: 10px;
+    border: 1px solid red;
+    padding: 10px 25px;
 }

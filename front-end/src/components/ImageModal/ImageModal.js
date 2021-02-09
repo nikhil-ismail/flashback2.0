@@ -74,7 +74,7 @@ const ImageModal = (props) => {
                                 ?
                                 <EditModal closeEdit={closeEdit} imgUrl={props.imgUrl} />
                                 :
-                                <TagModal favourite={favourite} imgUrl={props.imgUrl} handleEdit={handleEdit} />
+                                <TagModal onRouteChange={props.onRouteChange} onSearch={props.handleSearch} favourite={favourite} imgUrl={props.imgUrl} handleEdit={handleEdit} />
                             }
                         <div className="delete">
                             <p className="delete-btn" onClick={handleDelete}>Delete</p>

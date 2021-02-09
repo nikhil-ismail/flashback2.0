@@ -10,23 +10,24 @@
 .signin-form-card-left {
     background-color: white;
     width: 40%;
-    height: 80%;
+    height: 85%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 5rem;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
 }
 
 .signin-form-card-right {
-    /*background-image: linear-gradient(#5c5cd6,#cccccc);*/
     background-color: #7070db;
     width: 40%;
-    height: 80%;
+    height: 85%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 5rem;
     color: white;
     border-top-right-radius: 25px;
@@ -62,15 +63,10 @@
     margin-top: 20px;
     padding: 15px 40px;
     border-radius: 10px;
-    /*background-image: linear-gradient(#4d4dff,#bf80ff);*/
     background-color: #420dab;
     color: white;
     border: none;
     font-size: 1rem;
-}
-
-.signin-link {
-    margin-top: 2rem;
 }
 
 .signin-form-register {
@@ -86,4 +82,11 @@
 .flashback {
     font-family: "Billion Dreams", serif;
     font-size: 75px;
+}
+
+#error {
+    color: red;
+    border-radius: 10px;
+    border: 1px solid red;
+    padding: 10px 25px;
 }

@@ -4,7 +4,7 @@ import './Modal.css';
 
 const Modal = (props) => {
     const [file, setFile] = useState('Choose File')
-    const [fileSelected, setFileSelected] = useState(false);
+    const [fileSelected, setFileSelected] = useState(null);
     const [who, setWho] = useState();
     const [where, setWhere] = useState();
     const [when, setWhen] = useState();
@@ -44,6 +44,7 @@ const Modal = (props) => {
 
     const handleFormSubmit = event => {
         event.preventDefault();
+
         const data = new FormData();
         data.append('userId', userId);
         data.append('file', file);
@@ -86,7 +87,7 @@ const Modal = (props) => {
                                 ?
                                 <p>{file.name}</p>
                                 :
-                                <p>File Not Selected</p>
+                                <p id="no-file">File Not Selected</p>
                             }
                         </div>
                         <div className="detail-inputs">
