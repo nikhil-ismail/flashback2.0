@@ -10,8 +10,7 @@ const knex = require('knex')({
         host: '127.0.0.1',
         user: '',
         password: '',
-        port: '5434',
-        database: 'flashback'
+        database: 'yourspace'
     }
 });
 
@@ -116,6 +115,7 @@ app.post('/post', (req, res) => {
         .into("posts")
         .returning("*")
         .then(rows => {
+            console.log(rows[0]);
             console.log("File successfully uploaded");
             return res.status(200).send("File successfully uploaded");
         })
@@ -139,18 +139,16 @@ app.put('/favourite/:imgurl', (req, res) => {
     })
 })
 
-app.get('/feed/:id', (req, res) => {
+app.get('/home/:id', (req, res) => {
     knex('posts').where({
-        'user_id': parseInt(req.params.id.substring(3))
+        'user_id': req.params.id
     })
     .select('img_path')
     .orderBy('post_id', 'desc')
-    .then(paths => {
-        for (let i = 0; i < paths.length; ++i) {
-            if (paths[i].img_path === null) {
-                paths.splice(i, 1);
-            }
-        }
+    .then(response => {
+        const paths = response.map(path => {
+            return path.img_path;
+        })
         return res.json(paths);
     })
     .catch(err => {
@@ -164,7 +162,6 @@ app.get('/details/:imgUrl', (req, res) => {
     })
     .select('who', 'location', 'time_of_memory', 'what', 'favourite')
     .then(paths => {
-        console.log(paths[0]);
         return res.json(paths[0]);
     })
     .catch(err => {
@@ -173,18 +170,17 @@ app.get('/details/:imgUrl', (req, res) => {
 })
 
 app.get('/favourites/:id', (req, res) => {
+    console.log(req.params.id);
     knex('posts').where({
-        'user_id': parseInt(req.params.id.substring(3)),
+        'user_id': req.params.id,
         'favourite': true
     })
     .select('img_path', 'who', 'location', 'time_of_memory', 'what', 'favourite')
     .orderBy('post_id', 'desc')
-    .then(paths => {
-        for (let i = 0; i < paths.length; ++i) {
-            if (paths[i].img_path === null) {
-                paths.splice(i, 1);
-            }
-        }
+    .then(response => {
+        const paths = response.map(path => {
+            return path.img_path;
+        })
         return res.json(paths);
     })
     .catch(err => {
@@ -287,6 +283,8 @@ app.get('/search/:id', async (req, res) => {
                 imgUrls.push(result.img_path);
             })
         }
+
+        console.log(imgUrls);
 
         return res.status(200).json(imgUrls);
     }

@@ -30,13 +30,18 @@ const ImageModal = (props) => {
 
     const handleLove = (event) => {
         event.preventDefault();
-        axios.put(`http://localhost:5000/favourite/${props.imgUrl.substring(30)}`, {favourite: !favourite})
-        .then(res => {
-            setFavourite(!favourite)
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        let mounted = true;
+        if (mounted) {
+            axios.put(`http://localhost:5000/favourite/${props.imgUrl.substring(30)}`, {favourite: !favourite})
+            .then(res => {
+                setFavourite(!favourite)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
+
+        return () => mounted = false;
     }
 
     const handleDelete = event => {
@@ -44,7 +49,7 @@ const ImageModal = (props) => {
         console.log('here');
         axios.delete(`http://localhost:5000/delete/${props.imgUrl.substring(30)}`)
         .then(response => {
-            console.log(response);
+            props.onFeedChange();
             props.closeModal();
         })
         .catch(err => console.log(err));
@@ -74,7 +79,14 @@ const ImageModal = (props) => {
                                 ?
                                 <EditModal closeEdit={closeEdit} imgUrl={props.imgUrl} />
                                 :
-                                <TagModal onRouteChange={props.onRouteChange} onSearch={props.handleSearch} favourite={favourite} imgUrl={props.imgUrl} handleEdit={handleEdit} />
+                                <TagModal
+                                    favourite={favourite}
+                                    imgUrl={props.imgUrl}
+                                    handleEdit={handleEdit}
+                                    onFeedChange={props.onFeedChange}
+                                    onSearch={props.onSearch}
+                                    closeModal={props.closeModal}
+                                />
                             }
                         <div className="delete">
                             <p className="delete-btn" onClick={handleDelete}>Delete</p>

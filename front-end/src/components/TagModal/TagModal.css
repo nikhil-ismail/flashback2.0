@@ -16,8 +16,8 @@
     overflow-x: hidden;
     overflow-y: auto;
     padding: 5px 10px;
-    border-top: 0.5px solid #d4d4d4;
-    border-bottom: 0.5px solid #d4d4d4;
+    border-top: 0.5px solid #7070db;
+    border-bottom: 0.5px solid #7070db;
 }
 
 .w-container {
@@ -50,6 +50,12 @@
     width: 70%;
     display: flex;
     flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.value:hover {
+    background-color:#7070db;
+    color: white;
 }
 
 .tagmodal-btns {

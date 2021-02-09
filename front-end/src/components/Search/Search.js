@@ -4,10 +4,7 @@ import Feed from '../Feed/Feed';
 import './Search.css';
 
 const Search = (props) => {
-    const query = props.query;
     const [imgUrls, setImgUrls] = useState(props.results);
-
-    console.log(imgUrls);
 
     return (
         <div className="feed-container-a">

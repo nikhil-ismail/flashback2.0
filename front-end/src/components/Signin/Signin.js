@@ -54,8 +54,8 @@ const Signin = (props) => {
     }
 
     return (
-        <div class="signin">
-            <div class="signin-form-card-left">
+        <div className="signin">
+            <div className="signin-form-card-left">
                 <h1>Welcome Back</h1>
                 <form>
                     <input
