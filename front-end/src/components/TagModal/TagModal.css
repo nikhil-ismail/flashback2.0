@@ -51,11 +51,11 @@
     display: flex;
     flex-wrap: wrap;
     cursor: pointer;
+    transition: transform .5s;
 }
 
 .value:hover {
-    background-color:#7070db;
-    color: white;
+    transform: scale(0.95);
 }
 
 .tagmodal-btns {
