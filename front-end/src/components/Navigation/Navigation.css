@@ -1,5 +1,5 @@
 .nav-bar-container {
-    background-color: #7070db;
+    background-color: #03b1fc;
     height: 10vh;
     display: flex;
     justify-content: center;
@@ -8,13 +8,13 @@
 }
 
 .logo-container {
-    padding-left: 10px;
     display: flex;
     justify-content: flex-start;
 }
 
 .logo {
-    font-size: 2rem;
+    font-size: 3rem;
+    font-family: "Billion Dreams", serif;
     font-weight: bold;
     color: white;
     cursor: pointer;
@@ -44,13 +44,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #c6c6ff;
+    background-color: #a1e2ff;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
     width: 100px;
     padding: 0.5rem;
     border: none;
     cursor: pointer;
+    transition: transform .3s;
+}
+
+.upload-container:hover {
+    background-color: #a1e2ff;
 }
 
 .upload {

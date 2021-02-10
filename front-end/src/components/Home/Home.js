@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import LazyLoad from 'react-lazyload';
 import Navigation from '../Navigation/Navigation';
 import Sidebar from '../Sidebar/Sidebar';
 import Feed from '../Feed/Feed';
@@ -70,11 +71,21 @@ const Home = (props) => {
                             ?
                             <p className="no-results">Upload your first memory!</p>
                             :
-                            <p className="no-results">You don't have any favourite memories yet.</p>
+                            (
+                                endPoint === 'favourites'
+                                ?
+                                <p className="no-results">You don't have any favourite memories yet.</p>
+                                :
+                                <p className="no-results">No memories matched your search.</p>
+                            )
                         )
                         :
                         imgUrls.map((imgUrl, index) => {
-                            return <Feed imgUrl={imgUrl} key={index} onFeedChange={handleFeedChange} onSearch={handleSearch} />
+                            return (
+                                <LazyLoad key={index} placeholder="..." height={200} offset={100}>
+                                    <Feed imgUrl={imgUrl} key={index} onFeedChange={handleFeedChange} onSearch={handleSearch} />
+                                </LazyLoad>
+                            );
                         })
                     }
                 </div>

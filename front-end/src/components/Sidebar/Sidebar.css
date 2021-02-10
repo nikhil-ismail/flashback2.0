@@ -36,14 +36,14 @@
     width: 90%;
     font-size: 1.3rem;
     font-weight: bold;
-    background-color: #7070db;
+    background-color: #14b8ff;
     color: white;
     cursor: pointer;
     opacity: 60%;
 }
 
 .sidebar-item:hover {
-    background-color: #7070db;
+    background-color: #14b8ff;
     color: white;
     opacity: 60%;
 }
@@ -53,12 +53,12 @@
     width: 90%;
     border-radius: 10px;
     background-color: white;
-    color:  #420dab;
-    border: 2px solid #4233cc;
+    color:  #03b1fc;
+    border: 2px solid #03b1fc;
     padding: 10px;
 }
 
 .signout:hover {
-    background-color: #420dab;
+    background-color: #03b1fc;
     color: white;
   }

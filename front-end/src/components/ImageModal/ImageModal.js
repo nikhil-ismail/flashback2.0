@@ -53,14 +53,23 @@ const ImageModal = (props) => {
     if (props.showModal) {
         return (
             <div className="modal">
-                <div className="image-modal-card">
-                    <img 
-                        onDoubleClick={handleLove}
-                        className="modal-image"
-                        style={{width: '66%', height: '100%', objectFit: 'contain'}}
-                        alt="post"
-                        src={props.imgUrl}
+                <div className="close-container">
+                    <input
+                        type="button"
+                        value="x"
+                        className="upload-close"
+                        onClick={closeModal}
                     />
+                </div>
+                <div className="image-modal-card">
+                    <div className="image-container">
+                        <img 
+                            className="img"
+                            onDoubleClick={handleLove}
+                            alt="post"
+                            src={props.imgUrl}
+                        />
+                    </div>
                     {
                         editVisible
                         ?
@@ -80,14 +89,6 @@ const ImageModal = (props) => {
                             closeModal={props.closeModal}
                         />
                     }
-                </div>
-                <div className="close-container">
-                    <input
-                        type="button"
-                        value="asdfadsjfdisadsjfdklsa;"
-                        className="upload-close"
-                        onClick={closeModal}
-                    />
                 </div>
             </div>
         );

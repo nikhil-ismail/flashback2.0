@@ -59,25 +59,25 @@ const TagModal = (props) => {
             {
             loaded
             ?
-            <div className="details">
-                <div className="who-where">
-                    <div className="detail-wrapper">
-                        <div className="intro">Tagged</div>
-                        <div onClick={() => handleClick('who')} value="who" className="value">{who}</div>
+            <div className="tag-body">
+                <div className="tag-who-where">
+                    <div className="tag-detail-wrapper">
+                        <div className="tag-intro">Tagged</div>
+                        <div onClick={() => handleClick('who')} value="who" className="tag-value">{who}</div>
                     </div>
-                    <div className="detail-wrapper">
-                        <div className="intro">Where</div>
-                        <div onClick={() => handleClick('where')} value="where" className="value">{where}</div>
+                    <div className="tag-detail-wrapper">
+                        <div className="tag-intro">Where</div>
+                        <div onClick={() => handleClick('where')} value="where" className="tag-value">{where}</div>
                     </div>
                 </div>
-                <div className="when-what">
-                    <div className="detail-wrapper">
-                        <div className="intro">When</div>
-                        <div onClick={() => handleClick('when')} value="when" className="value">{when}</div>
+                <div className="tag-when-what">
+                    <div className="tag-detail-wrapper">
+                        <div className="tag-intro">When</div>
+                        <div onClick={() => handleClick('when')} value="when" className="tag-value">{when}</div>
                     </div>
-                    <div className="detail-wrapper">
-                        <div className="intro">What</div>
-                        <div onClick={() => handleClick('what')} value="what" className="value">{what}</div>
+                    <div className="tag-detail-wrapper">
+                        <div className="tag-intro">What</div>
+                        <div onClick={() => handleClick('what')} value="what" className="tag-value">{what}</div>
                     </div>
                 </div>
             </div>
@@ -91,15 +91,15 @@ const TagModal = (props) => {
                     {
                         favourite
                         ?
-                        <img src={fullheart} className="favourite-edit-icon" style={{height:'30px', width:'30px'}} onClick={handleLove} />
+                        <img src={fullheart} className="favourite-icon" style={{height:'35px', width:'35px'}} onClick={handleLove} />
                         :
-                        <img src={emptyheart} className="favourite-edit-icon" style={{height:'30px', width:'30px'}} onClick={handleLove} />
+                        <img src={emptyheart} className="favourite-edit-icon" style={{height:'35px', width:'35px'}} onClick={handleLove} />
                     }
                 </div>
                 <div className="edit">
                     <img src={edit} className="favourite-edit-icon" style={{height:'30px', width:'30px'}} onClick={props.handleEdit} />
                 </div>
-                <img src={deletePost} style={{height:'30px', width:'30px'}} onClick={props.onDelete} />
+                <img src={deletePost} className="delete" style={{height:'30px', width:'30px'}} onClick={props.onDelete} />
             </div>
         </div>
     );

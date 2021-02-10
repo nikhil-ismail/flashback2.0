@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import './Signin.css';
-import Typing from 'react-typing-animation';
 
 const Signin = (props) => {
     const [_email, setEmail] = useState('');

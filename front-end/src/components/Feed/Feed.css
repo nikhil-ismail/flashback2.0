@@ -1,4 +1,4 @@
-.feed-container img {
+.feed-container .feed-img {
     width: 340px;
     height: 340px;
     object-fit: cover;
@@ -8,10 +8,10 @@
     transition: transform .5s;
 }
 
-#shadow {
-    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.feed-container .feed-img:hover {
+    transform: scale(1.015);
 }
 
-.feed-container img:hover {
-    transform: scale(1.015);
+#shadow {
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
