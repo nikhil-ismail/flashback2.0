@@ -7,29 +7,30 @@
 
 .image-modal-card {
     position: fixed;
-    width: 90%;
-    height: 80%;
+    width: 66%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .modal-image {
+    height: 100%;
     background-color: black;
 }
 
 .close-container {
-    height: 10%;
     display: flex;
     justify-content: flex-end;
 }
 
 .upload-close {
     padding: 1px;
-    border: none;
+    border: 3px solid red;
     font-size: 1.25rem;
     transition: transform .2s ease-out;
+    color: green;
 }
 
 .upload-close:hover {
@@ -41,42 +42,4 @@
     display: flex;
     justify-content: center;
     height: 70%;
-}
-
-.details-container {
-    background-color: white;
-    height: 100%;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 5px solid black;
-}
-
-.delete {
-    height: 10%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.delete-btn {
-    border: 1px solid red;
-    padding: 3px 10px;
-    color: red;
-    background-color: white;
-    border-radius: 5px;
-    transition: transform .2s ease-out;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    width: 90%;
-}
-
-.delete-btn:hover {
-    color: white;
-    background-color: red;
-    justify-content: center;
-    transform: scale(0.98);
 }

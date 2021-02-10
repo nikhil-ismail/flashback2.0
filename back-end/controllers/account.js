@@ -14,6 +14,7 @@ const handleSignin = (req, res, knex, bcrypt) => {
         .then(response => {
             if (response) {
                 console.log("Password matched");
+                console.log(rows[0].user_id);
                 return res.status(200).send({
                     user_id: rows[0].user_id
                 })

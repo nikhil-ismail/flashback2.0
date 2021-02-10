@@ -44,54 +44,39 @@ const ImageModal = (props) => {
         return () => mounted = false;
     }
 
-    const handleDelete = event => {
-        event.preventDefault();
-        console.log('here');
-        axios.delete(`http://localhost:5000/delete/${props.imgUrl.substring(30)}`)
-        .then(response => {
-            props.onFeedChange();
-            props.closeModal();
-        })
-        .catch(err => console.log(err));
-    }
-
     if (props.showModal) {
         return (
             <div className="modal">
                 <div className="image-modal-card">
                     <img 
-                    onDoubleClick={handleLove}
-                    className="modal-image"
-                    style={{width: '50%', height: '100%', objectFit: 'contain'}}
-                    alt="post"
-                    src={props.imgUrl} />
-                    <div className="details-container">
-                        <div className="close-container">
-                            <input
-                                type="button"
-                                value="X"
-                                className="upload-close"
-                                onClick={closeModal}
-                            />
-                        </div>
-                            {
-                                editVisible
-                                ?
-                                <EditModal closeEdit={closeEdit} imgUrl={props.imgUrl} />
-                                :
-                                <TagModal
-                                    favourite={favourite}
-                                    imgUrl={props.imgUrl}
-                                    handleEdit={handleEdit}
-                                    onFeedChange={props.onFeedChange}
-                                    onSearch={props.onSearch}
-                                    closeModal={props.closeModal}
-                                />
-                            }
-                        <div className="delete">
-                            <p className="delete-btn" onClick={handleDelete}>Delete</p>
-                        </div>
-                    </div>
+                        onDoubleClick={handleLove}
+                        className="modal-image"
+                        style={{width: '66%', height: '100%', objectFit: 'contain'}}
+                        alt="post"
+                        src={props.imgUrl}
+                    />
+                    {
+                        editVisible
+                        ?
+                        <EditModal closeEdit={closeEdit} imgUrl={props.imgUrl} />
+                        :
+                        <TagModal
+                            favourite={favourite}
+                            imgUrl={props.imgUrl}
+                            handleEdit={handleEdit}
+                            onFeedChange={props.onFeedChange}
+                            onSearch={props.onSearch}
+                            closeModal={props.closeModal}
+                        />
+                    }
+                </div>
+                <div className="close-container">
+                    <input
+                        type="button"
+                        value="asdfadsjfdisadsjfdklsa;"
+                        className="upload-close"
+                        onClick={closeModal}
+                    />
                 </div>
             </div>
         );

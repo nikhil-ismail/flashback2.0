@@ -1,39 +1,51 @@
 .tagmodal-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    height: 80%;
-    width: 100%;
+    align-items: center;
+    height: 50%;
+    width: 66%;
+    background-color: white;
 }
 
 .details {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-content: space-between;
     flex-wrap: wrap;
     width: 100%;
-    height: 80%;
+    height: 70%;
+    padding: 5px 5px 5px 5px;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 5px 10px;
-    border-top: 0.5px solid #7070db;
-    border-bottom: 0.5px solid #7070db;
 }
 
-.w-container {
+.who-where {
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    padding: 5px;
+    justify-content: space-between;
+}
+
+.when-what {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.detail-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
 }
 
 .intro {
     border: 1px solid;
-    border-top-left-radius: 25px;
-    border-bottom-left-radius: 25px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
     padding: 1rem;
-    width: 24%;
     background-color: #7070db;
     color: white;
     border: 1px solid #7070db;
@@ -44,58 +56,39 @@
 
 .value {
     border: 1px solid;
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
-    padding: 15px;
-    width: 70%;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding: 1rem;
     display: flex;
     flex-wrap: wrap;
     cursor: pointer;
     transition: transform .5s;
 }
 
-.value:hover {
-    transform: scale(0.95);
-}
-
 .tagmodal-btns {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    height: 33%;
+    width: 90%;
 }
 
-.favourite-container {
-    height: 100%;
-    width: 50%;
-}
-
-.favourites-toggle {
-    height: 100%;
-    width: 50%;
-    cursor: pointer;
+.favourite {
+    justify-content: center;
+    align-items: flex-start;
     transition: transform .5s;
 }
 
-.favourites-toggle:hover{
-    transform: scale(0.95);
-}
-
-.edit-container {
-    height: 100%;
-    width: 50%;
-
-}
-
-.edit-toggle {
-    height: 100%;
-    width: 50%;
-    cursor: pointer;
+.edit {
+    justify-content: center;
+    align-items: flex-start;
     transition: transform .5s;
 }
 
-.edit-toggle:hover{
-    transform: scale(0.9);
+.delete {
+    transition: transform .2s ease-out;
+    cursor: pointer;
 }
 
 .loading {

@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const cors = require('cors');
 const bcrypt = require('bcrypt')
@@ -23,6 +24,7 @@ const knex = require('knex')({
 });
 
 const app = express();
+
 app.use(cors());
 app.use(bodyParser.json());
 

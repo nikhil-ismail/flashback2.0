@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import fullheart from './fullheart.png';
 import emptyheart from './emptyheart.png';
+import deletePost from './delete.png';
 import edit from './edit.png';
 import './TagModal.css';
 
@@ -40,6 +41,17 @@ const TagModal = (props) => {
         props.closeModal();
     }
 
+    const handleDelete = event => {
+        event.preventDefault();
+        console.log('here');
+        axios.delete(`http://localhost:5000/delete/${props.imgUrl.substring(30)}`)
+        .then(response => {
+            props.onFeedChange();
+            props.closeModal();
+        })
+        .catch(err => console.log(err));
+    }
+
     useEffect(() => {
         let mounted = true;
         axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`)
@@ -61,52 +73,50 @@ const TagModal = (props) => {
     return (
         <div className="tagmodal-container">
             {
-                loaded
-                ?
-                <div>
-                    <div className="details">
-                        <div className="w-container">
-                            <div className="intro">Tagged</div>
-                            <div onClick={() => handleClick('who')} value="who" className="value">{who}</div>
-                        </div>
-                        <div className="w-container">
-                            <div className="intro">Where</div>
-                            <div onClick={() => handleClick('where')} value="where" className="value">{where}</div>
-                        </div>
-                        <div className="w-container">
-                            <div className="intro">When</div>
-                            <div onClick={() => handleClick('when')} value="when" className="value">{when}</div>
-                        </div>
-                        <div className="w-container">
-                            <div className="intro">What</div>
-                            <div onClick={() => handleClick('what')} value="what" className="value">{what}</div>
-                        </div>
+            loaded
+            ?
+            <div className="details">
+                <div className="who-where">
+                    <div className="detail-wrapper">
+                        <div className="intro">Tagged</div>
+                        <div onClick={() => handleClick('who')} value="who" className="value">{who}</div>
                     </div>
-                    <div className="tagmodal-btns">
-                        <div className="favourite-container">
-                            {
-                                favourite
-                                ?
-                                <div className="favourites-toggle">
-                                    <img src={fullheart} style={{height:'40%', width:'40%'}} onClick={handleLove} />
-                                </div>
-                                :
-                                <div className="favourites-toggle">
-                                    <img src={emptyheart} style={{height:'40%', width:'40%'}} onClick={handleLove} />
-                                </div>                            }
-                        </div>
-                        <div className="edit-container">
-                            <div className="edit-toggle">
-                                <img src={edit} style={{height:'40%', width:'40%'}} onClick={props.handleEdit} />
-                            </div>
-                        </div>
+                    <div className="detail-wrapper">
+                        <div className="intro">Where</div>
+                        <div onClick={() => handleClick('where')} value="where" className="value">{where}</div>
                     </div>
                 </div>
-                :
-                <div className="loading">
-                    <p className="loading-message">Retrieving image tags...</p>
+                <div className="when-what">
+                    <div className="detail-wrapper">
+                        <div className="intro">When</div>
+                        <div onClick={() => handleClick('when')} value="when" className="value">{when}</div>
+                    </div>
+                    <div className="detail-wrapper">
+                        <div className="intro">What</div>
+                        <div onClick={() => handleClick('what')} value="what" className="value">{what}</div>
+                    </div>
                 </div>
+            </div>
+            :
+            <div className="loading">
+                <p className="loading-message">Retrieving image tags...</p>
+            </div>
             }
+            <div className="tagmodal-btns">
+                <div className="favourite">
+                    {
+                        favourite
+                        ?
+                        <img src={fullheart} className="favourite-edit-icon" style={{height:'30px', width:'30px'}} onClick={handleLove} />
+                        :
+                        <img src={emptyheart} className="favourite-edit-icon" style={{height:'30px', width:'30px'}} onClick={handleLove} />
+                    }
+                </div>
+                <div className="edit">
+                    <img src={edit} className="favourite-edit-icon" style={{height:'30px', width:'30px'}} onClick={props.handleEdit} />
+                </div>
+                <img src={deletePost} style={{height:'30px', width:'30px'}} onClick={handleDelete} />
+            </div>
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import deletePost from './delete.png';
 import './EditModal.css';
 
 const EditModal = (props) => {
@@ -65,39 +66,44 @@ const EditModal = (props) => {
     return (
         <div className="editmodal-container">
             {
-                loaded
-                ?
-                <div>
-                    <div className="details">
-                        <div className="w-container">
-                                <span className="intro">Tagged</span>
-                                <input type="text" placeholder={who} className="value" name="who" onChange={handleDetails} />
-                        </div>
-                        <div className="w-container">
-                                <span className="intro">Where</span>
-                                <input type="text" placeholder={where} className="value" name="where" onChange={handleDetails} />
-                        </div>
-                        <div className="w-container">
-                                <span className="intro">When</span>
-                                <input type="text" placeholder={when} className="value" name="when" onChange={handleDetails} />
-                        </div>
-                        <div className="w-container">
-                                <span className="intro">What</span>
-                                <input type="text" placeholder={what} className="value" name="what" onChange={handleDetails} />
-                        </div>
+            loaded
+            ?
+            <div className="details">
+                <div className="who-where">
+                    <div className="detail-wrapper">
+                        <div className="intro">Tagged</div>
+                        <input type="text" placeholder={who} className="value" name="who" onChange={handleDetails} />
                     </div>
-                    <div className="tagmodal-btns">
-                        <div>
-                            <button className="edit-btn" onClick={handleCancel}>Cancel</button>
-                            <button className="edit-btn" onClick={handleFormSubmit}>Confirm</button>
-                        </div>
+                    <div className="detail-wrapper">
+                        <div className="intro">Where</div>
+                        <input type="text" placeholder={where} className="value" name="where" onChange={handleDetails} />
                     </div>
                 </div>
-                :
-                <div className="loading">
-                    <p className="loading-message">Retrieving image tags...</p>
+                <div className="when-what">
+                    <div className="detail-wrapper">
+                        <div className="intro">When</div>
+                        <input type="text" placeholder={when} className="value" name="when" onChange={handleDetails} />
+                    </div>
+                    <div className="detail-wrapper">
+                        <div className="intro">What</div>
+                        <input type="text" placeholder={what} className="value" name="what" onChange={handleDetails} />
+                    </div>
                 </div>
+            </div>
+            :
+            <div className="loading">
+                <p className="loading-message">Retrieving image tags...</p>
+            </div>
             }
+            <div className="tagmodal-btns">
+                <div className="cancel">
+                    <button className="edit-btn" onClick={handleCancel}>Cancel</button>
+                </div>
+                <div className="confirm">
+                    <button className="edit-btn" onClick={handleFormSubmit}>Confirm</button>
+                </div>
+                <img src={deletePost} style={{height:'30px', width:'30px'}} onClick={props.handleEdit} />
+            </div>
         </div>
     );
 }
