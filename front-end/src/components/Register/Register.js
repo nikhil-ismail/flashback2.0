@@ -3,7 +3,6 @@ import './Register.css';
 
 const Register = (props) => {
     const [_name, setName] = useState('');
-    const [_username, setUsername] = useState('');
     const [_email, setEmail] = useState('');
     const [_password, setPassword] = useState('');
     const [_confirmpassword, setConfirmPassword] = useState('');
@@ -11,10 +10,6 @@ const Register = (props) => {
 
     const onNameChange = (event) => {
         setName(event.target.value);
-    }
-
-    const onUsernameChange = (event) => {
-        setUsername(event.target.value);
     }
 
     const onEmailChange = (event) => {
@@ -32,7 +27,7 @@ const Register = (props) => {
     const handleRegister = async (event) => {
         event.preventDefault();
 
-        if (_name === ''|| _username === '' || _email === '' || _password === '' || _confirmpassword === '') {
+        if (_name === '' || _email === '' || _password === '' || _confirmpassword === '') {
             setError(true);
         }
 
@@ -42,7 +37,6 @@ const Register = (props) => {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
                     name: _name,
-                    username: _username,
                     email: _email,
                     password: _password,
                     confirmpassword: _confirmpassword
@@ -57,7 +51,6 @@ const Register = (props) => {
                 console.log('Email entered already exists'); 
                 setError(true);  
                 setName('');
-                setUsername('');
                 setEmail('');
                 setPassword('');
                 setConfirmPassword('');
@@ -66,7 +59,6 @@ const Register = (props) => {
             console.log(err);
             console.log('An error occurred registering');
             setName('');
-            setUsername('');
             setEmail('');
             setPassword('');
             setConfirmPassword('');
@@ -87,15 +79,6 @@ const Register = (props) => {
                         required
                         className="register-form-input"
                         onChange={onNameChange}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Enter username" 
-                        value={_username}
-                        name="username"
-                        required
-                        className="register-form-input"
-                        onChange={onUsernameChange}
                     />
                     <input
                         type="email"
@@ -132,7 +115,6 @@ const Register = (props) => {
                     >
                         Create Account
                     </button>
-                    <br />
                     {
                         error &&
                         <p id="error">Register unsuccessful. Please try again.</p>

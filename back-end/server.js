@@ -1,5 +1,4 @@
 const express = require('express');
-const session = require('express-session');
 const path = require('path');
 const cors = require('cors');
 const bcrypt = require('bcrypt')
@@ -24,7 +23,6 @@ const knex = require('knex')({
 });
 
 const app = express();
-
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -59,5 +57,27 @@ app.delete('/delete/:imgUrl', (req, res) => {modal.handleDelete(req, res, knex)}
 
 //Setting home feed based on search results
 app.get('/search/:id', (req, res) => {search.handleSearch(req, res, knex)})
+
+app.get('/random/:id', (req, res) => {
+    knex('posts')
+    .where({user_id: req.params.id})
+    .select('img_path')
+    .then(paths => {
+        const randomMemories = paths.sort(() => {
+            return 0.5 - Math.random()
+        })
+
+        if (randomMemories.length > 6) {
+            return res.status(200).json(randomMemories.slice(0, 6).map(imgUrl => {
+                return imgUrl.img_path;
+            }));
+        } else {
+            return res.status(200).json(randomMemories.map(imgUrl => {
+                return imgUrl.img_path;
+            }));
+        }
+    })
+    .catch(err => console.log(err))
+})
 
 app.listen(5000, () => console.log(`Server listening on Port 5000`));

@@ -102,7 +102,7 @@ const EditModal = (props) => {
                 <div className="confirm">
                     <button className="edit-btn" onClick={handleFormSubmit}>Confirm</button>
                 </div>
-                <img src={deletePost} style={{height:'30px', width:'30px'}} onClick={props.handleEdit} />
+                <img src={deletePost} style={{height:'30px', width:'30px'}} onClick={props.onDelete} />
             </div>
         </div>
     );

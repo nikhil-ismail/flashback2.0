@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navigation from '../Navigation/Navigation';
+import Sidebar from '../Sidebar/Sidebar';
 import Feed from '../Feed/Feed';
 import './Home.css';
 
@@ -15,7 +16,6 @@ const Home = (props) => {
     }
 
     const handleSearch = search => {
-        console.log('search')
         setEndPoint('search');
         setQuery(search);
     }
@@ -25,21 +25,21 @@ const Home = (props) => {
     }
 
     const handleFeedChange = () => {
-        console.log(feedChanges);
         setFeedChanges(feedChanges + 1);
     }
 
+    const handleMemoryLane = () => {
+        setEndPoint('random');
+        handleFeedChange();
+    }
+
     useEffect(() => {
-        let mounted = true;
         axios.get(`http://localhost:5000/${endPoint}/${props.userId}?search=${query}`)
         .then(response => {
-            if (mounted) {
-                setImgUrls(response.data);
-            }
+            setImgUrls(response.data);
         })
         .catch(err => console.log(err));
 
-        return () => mounted = false;
     }, [endPoint, query, feedChanges])
 
     return (
@@ -47,21 +47,37 @@ const Home = (props) => {
             <Navigation
                 userId={props.userId}
                 onHome={handleHome}
-                onFavourite={handleFavourite}
                 onSearch={handleSearch}
-                onSignout={props.onSignOut}
                 onFeedChange={handleFeedChange}
             />
-            <div className="feed">
-                {
-                    imgUrls.length === 0
-                    ?
-                    <p>Upload your first memory!</p>
-                    :
-                    imgUrls.map((imgUrl, index) => {
-                        return <Feed imgUrl={imgUrl} key={index} onFeedChange={handleFeedChange} onSearch={handleSearch} />
-                    })
-                }
+            <div className="sidebar-feed">
+                <div className="sidebar">
+                    <Sidebar
+                        currentPage={endPoint}
+                        onFeedChange={handleFeedChange}
+                        onHome={handleHome}
+                        onFavourite={handleFavourite}
+                        onMemoryLane={handleMemoryLane}
+                        onSignout={props.onSignOut}
+                    />
+                </div>
+                <div className="feed">
+                    {
+                        imgUrls.length === 0
+                        ?
+                        (
+                            endPoint === 'home'
+                            ?
+                            <p className="no-results">Upload your first memory!</p>
+                            :
+                            <p className="no-results">You don't have any favourite memories yet.</p>
+                        )
+                        :
+                        imgUrls.map((imgUrl, index) => {
+                            return <Feed imgUrl={imgUrl} key={index} onFeedChange={handleFeedChange} onSearch={handleSearch} />
+                        })
+                    }
+                </div>
             </div>
         </div>
     );

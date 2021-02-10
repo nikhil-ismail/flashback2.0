@@ -1,12 +1,12 @@
 const handleSignin = (req, res, knex, bcrypt) => {
-    const {username, password} = req.body;
+    const {email, password} = req.body;
 
-    if (username === '' || password === '') {
+    if (email === '' || password === '') {
         return res.status(400).send("Empty field(s)");
     }
 
     knex('users').where({
-        user_name: username
+        email: email
     })
     .select('user_id', 'password')
     .then(rows => {
@@ -14,7 +14,6 @@ const handleSignin = (req, res, knex, bcrypt) => {
         .then(response => {
             if (response) {
                 console.log("Password matched");
-                console.log(rows[0].user_id);
                 return res.status(200).send({
                     user_id: rows[0].user_id
                 })
@@ -29,10 +28,10 @@ const handleSignin = (req, res, knex, bcrypt) => {
 }
 
 const handleRegister = (req, res, knex, bcrypt) => {
-    const {username, email, password} = req.body;
+    const {name, email, password} = req.body;
 
     knex('users').where({
-        'user_name': username
+        'email': email
     })
     .select('*')
     .then(rows => {
@@ -47,7 +46,7 @@ const handleRegister = (req, res, knex, bcrypt) => {
                 }
 
                 knex.insert({
-                    user_name: username,
+                    name: name,
                     email: email,
                     password: hash
                 })

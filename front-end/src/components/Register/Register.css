@@ -42,8 +42,8 @@
 }
 
 .register-form-input {
-    margin-top: 12.5px;
-    margin-bottom: 12.5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     width: 275px;
     padding: 10px;
     outline: none;
@@ -84,4 +84,5 @@
     border-radius: 10px;
     border: 1px solid red;
     padding: 10px 25px;
+    margin-top: 10px;
 }

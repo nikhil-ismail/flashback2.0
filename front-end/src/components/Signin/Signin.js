@@ -3,12 +3,12 @@ import './Signin.css';
 import Typing from 'react-typing-animation';
 
 const Signin = (props) => {
-    const [_username, setUsername] = useState('');
+    const [_email, setEmail] = useState('');
     const [_password, setPassword] = useState('');
     const [error, setError] = useState(null);
 
-    const onUsernameChange = (event) => {
-        setUsername(event.target.value);
+    const onEmailChange = (event) => {
+        setEmail(event.target.value);
     }
 
     const onPasswordChange = (event) => {
@@ -18,7 +18,7 @@ const Signin = (props) => {
     const handleSignin = async (event) => {
         event.preventDefault();
 
-        if (_username === '' || _password === '') {
+        if (_email === '' || _password === '') {
             setError(true);
         }
 
@@ -27,7 +27,7 @@ const Signin = (props) => {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    username: _username,
+                    email: _email,
                     password: _password,
                 })
             });
@@ -41,14 +41,14 @@ const Signin = (props) => {
             } else {
                 console.log('Unable to sign in user');
                 setError(true)
-                setUsername('');
+                setEmail('');
                 setPassword('');
             }
         } catch (err) {
             console.log('An error occurred signing in');
             console.log(err);
             setError(true);
-            setUsername('');
+            setEmail('');
             setPassword('');
         }
     }
@@ -60,12 +60,12 @@ const Signin = (props) => {
                 <form>
                     <input
                         type="text"
-                        placeholder="Username"
-                        value={_username}
-                        name="username"
+                        placeholder="Email"
+                        value={_email}
+                        name="email"
                         required
                         className="signin-form-input"
-                        onChange={onUsernameChange}
+                        onChange={onEmailChange}
                     />
                     <input
                         type="password"
@@ -87,7 +87,7 @@ const Signin = (props) => {
                     <br />
                     {
                         error &&
-                        <p id="error">Invalid username or password</p>
+                        <p id="error">Invalid email or password</p>
                     }
                 </form>
             </div>

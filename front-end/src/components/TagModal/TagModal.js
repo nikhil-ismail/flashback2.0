@@ -41,33 +41,17 @@ const TagModal = (props) => {
         props.closeModal();
     }
 
-    const handleDelete = event => {
-        event.preventDefault();
-        console.log('here');
-        axios.delete(`http://localhost:5000/delete/${props.imgUrl.substring(30)}`)
-        .then(response => {
-            props.onFeedChange();
-            props.closeModal();
-        })
-        .catch(err => console.log(err));
-    }
-
     useEffect(() => {
-        let mounted = true;
         axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`)
         .then(response => {
-            if (mounted) {
-                setWho(response.data.who);
-                setWhere(response.data.location);
-                setWhen(response.data.time_of_memory);
-                setWhat(response.data.what);
-                setFavourite(response.data.favourite);
-                setLoaded(true);
-            }
+            setWho(response.data.who);
+            setWhere(response.data.location);
+            setWhen(response.data.time_of_memory);
+            setWhat(response.data.what);
+            setFavourite(response.data.favourite);
+            setLoaded(true);
         })
         .catch(err => console.log(err));
-
-        return () => mounted = false;
     })
 
     return (
@@ -115,7 +99,7 @@ const TagModal = (props) => {
                 <div className="edit">
                     <img src={edit} className="favourite-edit-icon" style={{height:'30px', width:'30px'}} onClick={props.handleEdit} />
                 </div>
-                <img src={deletePost} style={{height:'30px', width:'30px'}} onClick={handleDelete} />
+                <img src={deletePost} style={{height:'30px', width:'30px'}} onClick={props.onDelete} />
             </div>
         </div>
     );

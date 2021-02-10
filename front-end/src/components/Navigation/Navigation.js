@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Modal from '../Modal/Modal';
-import emptyheart from './emptyheart.png';
 import Upload from './upload.png';
 import './Navigation.css';
 
@@ -31,10 +30,10 @@ const Navigation = (props) => {
 
     return (
         <div className="nav-bar-container">
-            <div className="flashback">
-                <h2 className="flashback-title" onClick={props.onHome}><i>Flashback</i></h2>
+            <div className="logo-container">
+                <div className="logo" onClick={() => props.onHome()}>Flashback</div>
             </div>
-            <div className="search">
+            <div className="search-upload">
                 <input
                     type="text"
                     className="search-bar"
@@ -42,24 +41,11 @@ const Navigation = (props) => {
                     onChange={handleChange}
                     onKeyPress={handleSearch}
                 />
-            </div>
-            <div className="nav-buttons">
-                <div className="upload-container">
-                    <img src={Upload} id="upload" height="40%" width="60%" onClick={openModal} />
-                </div>
-                <Modal onFeedChange={props.onFeedChange} showModal={showModal} closeModal={closeModal} userId={props.userId} />
-                <div className="favourites-container">
-                    <img src={emptyheart} height="50%" width="50%" onClick={() => props.onFavourite()} />
-                </div>
-                <div className="signout-container">
-                    <input
-                        id="signout"
-                        value="Sign Out"
-                        type="button"
-                        onClick={() => props.onSignout('signout')}
-                    />
+                <div className="upload-container" onClick={openModal}>
+                    <img src={Upload} className="upload" />
                 </div>
             </div>
+            <Modal onFeedChange={props.onFeedChange} showModal={showModal} closeModal={closeModal} userId={props.userId} />
         </div>       
     );
 }

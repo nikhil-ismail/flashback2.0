@@ -20,6 +20,17 @@ const ImageModal = (props) => {
         setEditVisible(false);
     }
 
+    const handleDelete = event => {
+        event.preventDefault();
+        console.log('here');
+        axios.delete(`http://localhost:5000/delete/${props.imgUrl.substring(30)}`)
+        .then(response => {
+            props.onFeedChange();
+            closeModal();
+        })
+        .catch(err => console.log(err));
+    }
+
     useEffect(() => {
         axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`)
         .then(response => {
@@ -30,18 +41,13 @@ const ImageModal = (props) => {
 
     const handleLove = (event) => {
         event.preventDefault();
-        let mounted = true;
-        if (mounted) {
-            axios.put(`http://localhost:5000/favourite/${props.imgUrl.substring(30)}`, {favourite: !favourite})
-            .then(res => {
-                setFavourite(!favourite)
-            })
-            .catch(err => {
-                console.log(err);
-            })
-        }
-
-        return () => mounted = false;
+        axios.put(`http://localhost:5000/favourite/${props.imgUrl.substring(30)}`, {favourite: !favourite})
+        .then(res => {
+            setFavourite(!favourite)
+        })
+        .catch(err => {
+            console.log(err);
+        })
     }
 
     if (props.showModal) {
@@ -58,12 +64,17 @@ const ImageModal = (props) => {
                     {
                         editVisible
                         ?
-                        <EditModal closeEdit={closeEdit} imgUrl={props.imgUrl} />
+                        <EditModal
+                            closeEdit={closeEdit}
+                            onDelete={handleDelete}
+                            imgUrl={props.imgUrl}
+                        />
                         :
                         <TagModal
                             favourite={favourite}
                             imgUrl={props.imgUrl}
                             handleEdit={handleEdit}
+                            onDelete={handleDelete}
                             onFeedChange={props.onFeedChange}
                             onSearch={props.onSearch}
                             closeModal={props.closeModal}
