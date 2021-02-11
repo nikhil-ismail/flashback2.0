@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import './Signin.css';
 
 const Signin = (props) => {
@@ -14,81 +15,74 @@ const Signin = (props) => {
         setPassword(event.target.value);
     }
 
-    const handleSignin = async (event) => {
+    const handleSignin = (event) => {
         event.preventDefault();
 
         if (_email === '' || _password === '') {
             setError(true);
-        }
-
-        try {
-            const response = await fetch('http://localhost:5000/signin', {
-                method: 'post',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    email: _email,
-                    password: _password,
-                })
-            });
-
-            if (response.ok) {
-                const json = await response.json();
-                props.onRouteChange('home');
-                props.onSuccessfulSignin(json.user_id);
-                console.log('User successfully signed in');
-                setError(false);
-            } else {
-                console.log('Unable to sign in user');
-                setError(true)
+        } else {
+            axios.post('http://localhost:5000/signin', {_email, _password})
+            .then(response => {
+                if (response.data.user_id) {
+                    setError(false);
+                    console.log('User successfully signed in');
+                    props.onRouteChange('home');
+                    props.onSuccessfulSignin(response.data.user_id);
+                } else {
+                    console.log('Unable to sign in user');
+                    setError(true)
+                    setEmail('');
+                    setPassword('');
+                }
+            })
+            .catch(err => {
+                console.log('An error occurred signing in');
+                console.log(err);
+                setError(true);
                 setEmail('');
                 setPassword('');
-            }
-        } catch (err) {
-            console.log('An error occurred signing in');
-            console.log(err);
-            setError(true);
-            setEmail('');
-            setPassword('');
+            })
         }
     }
 
     return (
         <div className="signin">
             <div className="signin-form-card-left">
-                <h1>Welcome Back</h1>
-                <form>
-                    <input
-                        type="text"
-                        placeholder="Email"
-                        value={_email}
-                        name="email"
-                        required
-                        className="signin-form-input"
-                        onChange={onEmailChange}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={_password}
-                        name="password"
-                        required
-                        className="signin-form-input"
-                        onChange={onPasswordChange}
-                    />
-                    <button
-                        variant="primary"
-                        type="submit"
-                        className="signin-form-button"
-                        onClick={handleSignin}
-                    >
-                        Sign In
-                    </button>
-                    <br />
-                    {
-                        error &&
-                        <p id="error">Invalid email or password</p>
-                    }
-                </form>
+                <div className="register-form-body">
+                    <form>
+                        <h1>Welcome Back</h1>
+                        {
+                            error &&
+                            <p id="error">Invalid email or password</p>
+                        }
+                        <input
+                            type="text"
+                            placeholder="Email"
+                            value={_email}
+                            name="email"
+                            required
+                            className="signin-form-input"
+                            onChange={onEmailChange}
+                        />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={_password}
+                            name="password"
+                            required
+                            className="signin-form-input"
+                            onChange={onPasswordChange}
+                        />
+                        <button
+                            variant="primary"
+                            type="submit"
+                            className="signin-form-button"
+                            onClick={handleSignin}
+                        >
+                            Sign In
+                        </button>
+                    </form>
+                </div>
             </div>
             <div className="signin-form-card-right">
                 <h1 className="flashback"><i>Flashback</i></h1>

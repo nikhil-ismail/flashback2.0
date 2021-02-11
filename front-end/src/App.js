@@ -24,7 +24,6 @@ const App = () => {
   }
 
   const handleSuccessfulSignin = (userId) => {
-    console.log(`Message: ${userId}`)
     setUser({id: userId})
     setIsSignedIn(true);
   }

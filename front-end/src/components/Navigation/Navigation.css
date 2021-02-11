@@ -1,5 +1,5 @@
 .nav-bar-container {
-    background-color: #03b1fc;
+    background-color: #005f8f;
     height: 10vh;
     display: flex;
     justify-content: center;
@@ -44,7 +44,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #a1e2ff;
+    background-color: #def4fe;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
     width: 100px;
@@ -55,7 +55,7 @@
 }
 
 .upload-container:hover {
-    background-color: #a1e2ff;
+    background-color: #9addff;
 }
 
 .upload {

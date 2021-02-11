@@ -17,8 +17,8 @@ const knex = require('knex')({
         host: '127.0.0.1',
         user: '',
         password: '',
-        port: '5434',
-        database: 'flashback'
+        port: '5432',
+        database: 'yourspace'
     }
 });
 

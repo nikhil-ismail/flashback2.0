@@ -1,16 +1,16 @@
 const handleSignin = (req, res, knex, bcrypt) => {
-    const {email, password} = req.body;
+    const {_email, _password} = req.body;
 
-    if (email === '' || password === '') {
+    if (_email === '' || _password === '') {
         return res.status(400).send("Empty field(s)");
     }
 
     knex('users').where({
-        email: email
+        email: _email
     })
     .select('user_id', 'password')
     .then(rows => {
-        bcrypt.compare(password, rows[0].password)
+        bcrypt.compare(_password, rows[0].password)
         .then(response => {
             if (response) {
                 console.log("Password matched");
@@ -28,10 +28,10 @@ const handleSignin = (req, res, knex, bcrypt) => {
 }
 
 const handleRegister = (req, res, knex, bcrypt) => {
-    const {name, email, password} = req.body;
+    const {_name, _email, _password} = req.body;
 
     knex('users').where({
-        'email': email
+        'email': _email
     })
     .select('*')
     .then(rows => {
@@ -39,24 +39,23 @@ const handleRegister = (req, res, knex, bcrypt) => {
             console.log('Account already exists');
             return res.status(400).send('Account already exists')
         } else {
-            bcrypt.hash(password, 10, (err, hash) => {
+            bcrypt.hash(_password, 10, (err, hash) => {
                 if (err) {
                     console.log(err);
                     return res.status(400).send('Error creating password');
                 }
 
                 knex.insert({
-                    name: name,
-                    email: email,
+                    name: _name,
+                    email: _email,
                     password: hash
                 })
                 .into("users")
                 .returning("*")
                 .then(rows => {
-                    console.log(rows[0]);
+                    return res.status(200).send('successful');
                 })
             })
-            .catch(err => console.log(err));
         }
     })
     .catch(err => console.log(err));

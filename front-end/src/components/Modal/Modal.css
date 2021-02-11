@@ -33,9 +33,9 @@ form {
     width: 200px;
     height: 50px;
     margin: 2px 0;
-    border: solid 1px #7070db;
+    border: solid 1px #005f8f;
     border-radius: 5px;
-    color: #7070db;
+    color: #005f8f;
     font-size: 1rem;
     font-weight: bold;
     transition: transform .2s ease-out;
@@ -79,7 +79,7 @@ form {
     color: #fff;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #7070db;
+    background-color: #005f8f;
     transition: transform .2s ease-out;
 }
 
@@ -87,16 +87,16 @@ form {
     transform: scale(0.95);
 }
 
-.upload-close {
+.close-upload-modal {
     margin: 0.8rem;
-    border: 1px solid #7070db;
-    color: #7070db;
+    border: 1px solid #005f8f;
+    color: #005f8f;
     background-color: white;
     border-radius: 5px;
     transition: transform .2s ease-out;
 }
 
-.upload-close:hover {
+.close-upload-modal:hover {
     transform: scale(0.95);
 }
 
