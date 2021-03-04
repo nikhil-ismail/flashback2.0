@@ -29,7 +29,7 @@ const EditModal = (props) => {
 
     const handleFormSubmit = event => {
         event.preventDefault();
-        axios.put('http://localhost:5000/edit', { who, what, where, when, imgUrl })
+        axios.put('http://localhost:5000/edit', { who, what, where, when, imgUrl }, { headers: { 'authorization': localStorage.getItem("token") } })
         .then(res => {
             props.closeEdit();
             props.refreshDetails({
@@ -51,7 +51,7 @@ const EditModal = (props) => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`)
+        axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`, { headers: { 'authorization': localStorage.getItem("token") } })
         .then(response => {
             setWho(response.data.who);
             setWhere(response.data.location);

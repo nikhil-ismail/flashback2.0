@@ -5,12 +5,12 @@ import Home from './components/Home/Home';
 import './App.css';
 
 const App = () => {
-  const [user, setUser] = useState({id: 2});
-  const [url, setUrl] = useState('home');
-  const [isSignedIn, setIsSignedIn] = useState(true);
+  const [url, setUrl] = useState('signin');
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   const handleRouteChange = (route) => {
     if (route === 'signout') {
+      localStorage.removeItem('token')
       setUrl('signin');
       setIsSignedIn(false);
     } else if (route === 'signin') {
@@ -19,12 +19,10 @@ const App = () => {
       setUrl('register');
     } else if (route === 'home') {
       setUrl('home');
-      setIsSignedIn(true);
     }
   }
 
-  const handleSuccessfulSignin = (userId) => {
-    setUser({id: userId})
+  const handleSuccessfulSignin = () => {
     setIsSignedIn(true);
   }
 
@@ -34,7 +32,7 @@ const App = () => {
       isSignedIn === true
       ?
         (
-          <Home onSignOut={handleRouteChange} userId={user.id} />
+          <Home onSignOut={handleRouteChange} />
         )
       :
         url === 'register'

@@ -1,4 +1,6 @@
-const handleSignin = (req, res, knex, bcrypt) => {
+require('dotenv').config();
+
+const handleSignin = (req, res, knex, bcrypt, jwt) => {
     const {_email, _password} = req.body;
 
     if (_email === '' || _password === '') {
@@ -14,12 +16,19 @@ const handleSignin = (req, res, knex, bcrypt) => {
         .then(response => {
             if (response) {
                 console.log("Password matched");
-                return res.status(200).send({
-                    user_id: rows[0].user_id
+                const user = { id: rows[0].user_id };
+                const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+
+                return res.status(200).json({
+                    auth: true,
+                    accessToken: accessToken
                 })
             } else {
                 console.log("Password doesn't match")
-                return res.status(400).send("Password doesn't match");
+                return res.status(400).json({
+                    auth: false,
+                    message: "Password doesn't match"
+                });
             }
         })
         .catch(err => console.log(err))

@@ -23,7 +23,7 @@ const ImageModal = (props) => {
     const handleDelete = event => {
         event.preventDefault();
         console.log('here');
-        axios.delete(`http://localhost:5000/delete/${props.imgUrl.substring(30)}`)
+        axios.delete(`http://localhost:5000/delete/${props.imgUrl.substring(30)}`, { headers: { 'authorization': localStorage.getItem("token") } })
         .then(response => {
             props.onFeedChange();
             closeModal();
@@ -32,7 +32,7 @@ const ImageModal = (props) => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`)
+        axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`, { headers: { 'authorization': localStorage.getItem("token") } })
         .then(response => {
             setFavourite(response.data.favourite);
         })
@@ -41,7 +41,7 @@ const ImageModal = (props) => {
 
     const handleLove = (event) => {
         event.preventDefault();
-        axios.put(`http://localhost:5000/favourite/${props.imgUrl.substring(30)}`, {favourite: !favourite})
+        axios.put(`http://localhost:5000/favourite/${props.imgUrl.substring(30)}`, {favourite: !favourite}, { headers: { 'authorization': localStorage.getItem("token") } })
         .then(res => {
             setFavourite(!favourite)
         })

@@ -16,7 +16,7 @@ const TagModal = (props) => {
 
     const handleLove = (event) => {
         event.preventDefault();
-        axios.put(`http://localhost:5000/favourite/${props.imgUrl.substring(30)}`, {favourite: !favourite})
+        axios.put(`http://localhost:5000/favourite/${props.imgUrl.substring(30)}`, {favourite: !favourite}, { headers: { 'authorization': localStorage.getItem("token") } })
         .then(res => {
             if (favourite) {
                 props.onFeedChange();
@@ -42,7 +42,7 @@ const TagModal = (props) => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`)
+        axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`, { headers: { 'authorization': localStorage.getItem("token") } })
         .then(response => {
             setWho(response.data.who);
             setWhere(response.data.location);

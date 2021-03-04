@@ -1,6 +1,6 @@
 const homeFeed = (req, res, knex) => {
     knex('posts').where({
-        'user_id': req.params.id
+        'user_id': req.id
     })
     .select('img_path')
     .orderBy('post_id', 'desc')

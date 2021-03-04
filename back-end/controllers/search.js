@@ -34,7 +34,7 @@ const handleSearch = async (req, res, knex) => {
     const searchResults = [];
 
     for (const term of query) {
-        const results = await getResults(req.params.id, term)
+        const results = await getResults(req.id, term)
         results.map(result => {
             searchResults.push(result.post_id);
         })
@@ -71,6 +71,29 @@ const handleSearch = async (req, res, knex) => {
     return res.status(200).send([]);
 }
 
+const handleRandom = (req, res, knex) => {
+    knex('posts')
+    .where({user_id: req.id})
+    .select('img_path')
+    .then(paths => {
+        const randomMemories = paths.sort(() => {
+            return 0.5 - Math.random()
+        })
+
+        if (randomMemories.length > 6) {
+            return res.status(200).json(randomMemories.slice(0, 6).map(imgUrl => {
+                return imgUrl.img_path;
+            }));
+        } else {
+            return res.status(200).json(randomMemories.map(imgUrl => {
+                return imgUrl.img_path;
+            }));
+        }
+    })
+    .catch(err => console.log(err))
+} 
+
 module.exports = {
-	handleSearch
+    handleSearch,
+    handleRandom
 }

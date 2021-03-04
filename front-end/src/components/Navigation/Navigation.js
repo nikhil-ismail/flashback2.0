@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Modal from '../Modal/Modal';
 import Upload from './upload.png';
 import './Navigation.css';
@@ -26,6 +25,7 @@ const Navigation = (props) => {
         if (event.key === 'Enter') {
             props.onSearch(query);
         }
+        setQuery('');
     }
 
     return (
@@ -45,7 +45,7 @@ const Navigation = (props) => {
                     <img src={Upload} className="upload" />
                 </div>
             </div>
-            <Modal onFeedChange={props.onFeedChange} showModal={showModal} closeModal={closeModal} userId={props.userId} />
+            <Modal onFeedChange={props.onFeedChange} showModal={showModal} closeModal={closeModal} />
         </div>       
     );
 }

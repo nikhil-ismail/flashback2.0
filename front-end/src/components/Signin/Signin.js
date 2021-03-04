@@ -23,11 +23,13 @@ const Signin = (props) => {
         } else {
             axios.post('http://localhost:5000/signin', {_email, _password})
             .then(response => {
-                if (response.data.user_id) {
-                    setError(false);
+                console.log(response.data);
+                if (response.data.auth) {
                     console.log('User successfully signed in');
+                    setError(false);
+                    localStorage.setItem("token", "Bearer " + response.data.accessToken);
                     props.onRouteChange('home');
-                    props.onSuccessfulSignin(response.data.user_id);
+                    props.onSuccessfulSignin();
                 } else {
                     console.log('Unable to sign in user');
                     setError(true)

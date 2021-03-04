@@ -20,7 +20,7 @@ const handleUpload = (req, res, knex) => {
         }
 
         knex.insert({
-            user_id: req.body.userId,
+            user_id: req.id,
             img_path: req.file.originalname,
             who: req.body.who,
             location: req.body.where,

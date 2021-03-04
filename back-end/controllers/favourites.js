@@ -15,9 +15,8 @@ const handleLove = (req, res, knex) => {
 }
 
 const favouritesFeed = (req, res, knex) => {
-    console.log(req.params.id);
     knex('posts').where({
-        'user_id': req.params.id,
+        'user_id': req.id,
         'favourite': true
     })
     .select('img_path', 'who', 'location', 'time_of_memory', 'what', 'favourite')
