@@ -17,7 +17,7 @@ const handleSignin = (req, res, knex, bcrypt, jwt) => {
             if (response) {
                 console.log("Password matched");
                 const user = { id: rows[0].user_id };
-                const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+                const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 
                 return res.status(200).json({
                     auth: true,

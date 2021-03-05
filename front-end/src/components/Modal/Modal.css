@@ -101,6 +101,14 @@ form {
 }
 
 #no-file {
-    color: red;
+    color: black;
+    font-weight: bold;
     margin-top: 10px;
+}
+
+.error {
+    border: 1px solid red;
+    border-radius: 5px;
+    padding: 5px;
+    color: red;
 }

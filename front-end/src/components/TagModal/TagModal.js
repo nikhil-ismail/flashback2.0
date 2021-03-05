@@ -60,25 +60,35 @@ const TagModal = (props) => {
             loaded
             ?
             <div className="tag-body">
-                <div className="tag-who-where">
-                    <div className="tag-detail-wrapper">
-                        <div className="tag-intro">Tagged</div>
-                        <div onClick={() => handleClick('who')} value="who" className="tag-value">{who}</div>
-                    </div>
-                    <div className="tag-detail-wrapper">
-                        <div className="tag-intro">Where</div>
-                        <div onClick={() => handleClick('where')} value="where" className="tag-value">{where}</div>
-                    </div>
-                </div>
-                <div className="tag-when-what">
-                    <div className="tag-detail-wrapper">
-                        <div className="tag-intro">When</div>
-                        <div onClick={() => handleClick('when')} value="when" className="tag-value">{when}</div>
-                    </div>
-                    <div className="tag-detail-wrapper">
-                        <div className="tag-intro">What</div>
-                        <div onClick={() => handleClick('what')} value="what" className="tag-value">{what}</div>
-                    </div>
+                <div className="tags">
+                    {
+                        who && 
+                        <div className="tag-detail-wrapper">
+                            <div className="tag-intro">Tagged</div>
+                            <div onClick={() => handleClick('who')} name="who" className="tag-value">{who}</div>
+                        </div>
+                    }
+                    {
+                        where &&
+                        <div className="tag-detail-wrapper">
+                            <div className="tag-intro">Where</div>
+                            <div onClick={() => handleClick('where')} name="where" className="tag-value">{where}</div>
+                        </div>
+                    }
+                    {
+                        when &&
+                        <div className="tag-detail-wrapper">
+                            <div className="tag-intro">When</div>
+                            <div onClick={() => handleClick('when')} name="when" className="tag-value">{when}</div>
+                        </div>
+                    }
+                    {
+                        what &&
+                        <div className="tag-detail-wrapper">
+                            <div className="tag-intro">What</div>
+                            <div onClick={() => handleClick('what')} name="what" className="tag-value">{what}</div>
+                        </div>
+                    }
                 </div>
             </div>
             :
@@ -91,15 +101,15 @@ const TagModal = (props) => {
                     {
                         favourite
                         ?
-                        <img src={fullheart} className="favourite-icon" style={{height:'35px', width:'35px'}} onClick={handleLove} />
+                        <img src={fullheart} alt="favourite icon" className="favourite-icon" style={{height:'35px', width:'35px'}} onClick={handleLove} />
                         :
-                        <img src={emptyheart} className="favourite-edit-icon" style={{height:'35px', width:'35px'}} onClick={handleLove} />
+                        <img src={emptyheart} alt="not favourite icon" className="favourite-edit-icon" style={{height:'35px', width:'35px'}} onClick={handleLove} />
                     }
                 </div>
                 <div className="edit">
-                    <img src={edit} className="favourite-edit-icon" style={{height:'30px', width:'30px'}} onClick={props.handleEdit} />
+                    <img src={edit} alt="edit icon" className="favourite-edit-icon" style={{height:'30px', width:'30px'}} onClick={props.handleEdit} />
                 </div>
-                <img src={deletePost} className="delete" style={{height:'30px', width:'30px'}} onClick={props.onDelete} />
+                <img src={deletePost} alt="delete icon" className="delete" style={{height:'30px', width:'30px'}} onClick={props.onDelete} />
             </div>
         </div>
     );

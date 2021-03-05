@@ -56,7 +56,8 @@
 }
 
 .value-edit {
-    border: 1px solid;
+    border: 1px solid black;
+    color: grey;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     padding: 0.5rem;

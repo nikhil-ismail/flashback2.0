@@ -42,7 +42,7 @@ const Navigation = (props) => {
                     onKeyPress={handleSearch}
                 />
                 <div className="upload-container" onClick={openModal}>
-                    <img src={Upload} className="upload" />
+                    <img src={Upload} className="upload" alt="upload" />
                 </div>
             </div>
             <Modal onFeedChange={props.onFeedChange} showModal={showModal} closeModal={closeModal} />

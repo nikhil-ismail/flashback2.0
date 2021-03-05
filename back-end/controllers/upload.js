@@ -1,18 +1,32 @@
 const multer = require('multer');
 
-const handleUpload = (req, res, knex) => {
-    const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, 'public/uploads')
-        },
-        filename: function (req, file, cb) {
-            cb(null, file.originalname)
-        }
-    })
-    
-    const upload = multer({ storage: storage }).single('file');
+const FILE_TYPE_MAP = {
+    'image/png': 'png',
+    'image/jpeg': 'jpeg',
+    'image/jpg': 'jpg'
+}
 
-    upload(req, res, err => {
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const isValid = FILE_TYPE_MAP[file.mimetype];
+        let uploadError = new Error('invalid image type');
+
+        if(isValid) {
+            uploadError = null
+        }
+        cb(uploadError, 'public/uploads')
+    },
+    filename: function (req, file, cb) {
+        const fileName = `${Date.now()}-${file.originalname}`;
+        cb(null, fileName)
+    }
+})
+
+const uploadImage = multer({ storage: storage }).single('file');
+
+const handleUpload = (req, res, knex) => {
+
+    uploadImage(req, res, err => {
         if (err instanceof multer.MulterError) {
             return res.status(500).json(err);
         } else if (err) {
@@ -21,7 +35,7 @@ const handleUpload = (req, res, knex) => {
 
         knex.insert({
             user_id: req.id,
-            img_path: req.file.originalname,
+            img_path: req.file.filename,
             who: req.body.who,
             location: req.body.where,
             time_of_memory: req.body.when,

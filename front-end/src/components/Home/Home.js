@@ -40,7 +40,6 @@ const Home = (props) => {
             setImgUrls(response.data);
         })
         .catch(err => console.log(err));
-
     }, [endPoint, query, feedChanges])
 
     return (
