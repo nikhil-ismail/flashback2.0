@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import LazyLoad from 'react-lazyload';
 import Navigation from '../Navigation/Navigation';
 import Sidebar from '../Sidebar/Sidebar';
 import Feed from '../Feed/Feed';
@@ -35,7 +34,7 @@ const Home = (props) => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/${endPoint}?search=${query}`, { headers: { 'authorization': localStorage.getItem("token") } })
+        axios.get(`http://localhost:5000/photos/${endPoint}?search=${query}`, { headers: { 'authorization': localStorage.getItem("token") } })
         .then(response => {
             setImgUrls(response.data);
         })
@@ -80,14 +79,12 @@ const Home = (props) => {
                         :
                         imgUrls.map((imgUrl, index) => {
                             return (
-                                <LazyLoad key={index} height={200} offset={100}>
-                                    <Feed
-                                        imgUrl={imgUrl}
-                                        key={index}
-                                        onFeedChange={handleFeedChange}
-                                        onSearch={handleSearch}
-                                    />
-                                </LazyLoad>
+                                <Feed
+                                    imgUrl={imgUrl}
+                                    key={index}
+                                    onFeedChange={handleFeedChange}
+                                    onSearch={handleSearch}
+                                />
                             );
                         })
                     }

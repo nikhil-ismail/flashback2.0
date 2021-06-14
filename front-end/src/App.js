@@ -5,8 +5,8 @@ import Home from './components/Home/Home';
 import './App.css';
 
 const App = () => {
-  const [url, setUrl] = useState('signin');
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [url, setUrl] = useState(localStorage.getItem("token") === null ? 'signin' : 'home');
+  const [isSignedIn, setIsSignedIn] = useState(localStorage.getItem("token") === null ? false : true);
 
   const handleRouteChange = (route) => {
     if (route === 'signout') {

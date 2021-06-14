@@ -1,115 +1,76 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import fullheart from './fullheart.png';
-import emptyheart from './emptyheart.png';
-import deletePost from './delete.png';
-import edit from './edit.png';
+import React, {useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as farHear } from '@fortawesome/free-regular-svg-icons'
+
 import './TagModal.css';
 
 const TagModal = (props) => {
-    const [loaded, setLoaded] = useState(false);
-    const [who, setWho] = useState(null);
-    const [where, setWhere] = useState(null);
-    const [when, setWhen] = useState(null);
-    const [what, setWhat] = useState(null);
-    const [favourite, setFavourite] = useState(null);
+    const [favourite, setFavourite] = useState(props.favourite);
 
-    const handleLove = (event) => {
+    const toggleFavourite = (event) => {
         event.preventDefault();
-        axios.put(`http://localhost:5000/favourite/${props.imgUrl.substring(30)}`, {favourite: !favourite}, { headers: { 'authorization': localStorage.getItem("token") } })
-        .then(res => {
-            if (favourite) {
-                props.onFeedChange();
-            }
-            setFavourite(!favourite)
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        setFavourite(!favourite);
+        props.onToggleFavourite();
     }
 
     const handleClick = detail => {
         if (detail === 'who') {
-            props.onSearch(who);
+            props.onSearch(props.imageDetails.who);
         } else if (detail === 'where') {
-            props.onSearch(where);
+            props.onSearch(props.imageDetails.location);
         } else if (detail === 'when') {
-            props.onSearch(when);
+            props.onSearch(props.imageDetails.time_of_memory);
         } else if (detail === 'what') {
-            props.onSearch(what);
+            props.onSearch(props.imageDetails.what);
         }
         props.closeModal();
     }
 
-    useEffect(() => {
-        axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`, { headers: { 'authorization': localStorage.getItem("token") } })
-        .then(response => {
-            setWho(response.data.who);
-            setWhere(response.data.location);
-            setWhen(response.data.time_of_memory);
-            setWhat(response.data.what);
-            setFavourite(response.data.favourite);
-            setLoaded(true);
-        })
-        .catch(err => console.log(err));
-    })
-
     return (
         <div className="tagmodal-container">
-            {
-            loaded
-            ?
             <div className="tag-body">
                 <div className="tags">
                     {
-                        who && 
+                        props.imageDetails.who && 
                         <div className="tag-detail-wrapper">
                             <div className="tag-intro">Tagged</div>
-                            <div onClick={() => handleClick('who')} name="who" className="tag-value">{who}</div>
+                            <div onClick={() => handleClick('who')} name="who" className="tag-value">{props.imageDetails.who}</div>
                         </div>
                     }
                     {
-                        where &&
+                        props.imageDetails.location &&
                         <div className="tag-detail-wrapper">
                             <div className="tag-intro">Where</div>
-                            <div onClick={() => handleClick('where')} name="where" className="tag-value">{where}</div>
+                            <div onClick={() => handleClick('where')} name="where" className="tag-value">{props.imageDetails.location}</div>
                         </div>
                     }
                     {
-                        when &&
+                        props.imageDetails.time_of_memory &&
                         <div className="tag-detail-wrapper">
                             <div className="tag-intro">When</div>
-                            <div onClick={() => handleClick('when')} name="when" className="tag-value">{when}</div>
+                            <div onClick={() => handleClick('when')} name="when" className="tag-value">{props.imageDetails.time_of_memory}</div>
                         </div>
                     }
                     {
-                        what &&
+                        props.imageDetails.what &&
                         <div className="tag-detail-wrapper">
                             <div className="tag-intro">What</div>
-                            <div onClick={() => handleClick('what')} name="what" className="tag-value">{what}</div>
+                            <div onClick={() => handleClick('what')} name="what" className="tag-value">{props.imageDetails.what}</div>
                         </div>
                     }
                 </div>
             </div>
-            :
-            <div className="loading">
-                <p className="loading-message">Retrieving image tags...</p>
-            </div>
-            }
             <div className="tagmodal-btns">
-                <div className="favourite">
-                    {
-                        favourite
-                        ?
-                        <img src={fullheart} alt="favourite icon" className="favourite-icon" style={{height:'35px', width:'35px'}} onClick={handleLove} />
-                        :
-                        <img src={emptyheart} alt="not favourite icon" className="favourite-edit-icon" style={{height:'35px', width:'35px'}} onClick={handleLove} />
-                    }
-                </div>
-                <div className="edit">
-                    <img src={edit} alt="edit icon" className="favourite-edit-icon" style={{height:'30px', width:'30px'}} onClick={props.handleEdit} />
-                </div>
-                <img src={deletePost} alt="delete icon" className="delete" style={{height:'30px', width:'30px'}} onClick={props.onDelete} />
+                {
+                    favourite
+                    ?
+                    <FontAwesomeIcon icon={faHeart} size="lg" className="favourite favourite-icon" onClick={toggleFavourite}/>
+                    :
+                    <FontAwesomeIcon icon={farHear} size="lg" className="favourite" onClick={toggleFavourite}/>
+                }
+                <FontAwesomeIcon icon={faEdit} size="lg" className="edit" onClick={props.onEdit} />
+                <FontAwesomeIcon icon={faTrash} size="lg" className="delete" onClick={props.onDelete}/>
             </div>
         </div>
     );

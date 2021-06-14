@@ -6,27 +6,23 @@ const Feed = (props) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const imgUrl = `http://localhost:5000/uploads/${props.imgUrl}`;
-
-  const openModal = () => {
-    setShowModal(true);
-  }
-
-  const closeModal = () => {
-      setShowModal(false);
+  const toggleShowModal = () => {
+    setShowModal(!showModal);
   }
 
   return (
-      <div className="feed-container">
-        <img className="feed-img" id="shadow" src={imgUrl} alt={props.imgPath} onClick={openModal} />
+    <div className="feed-container">
+      <img className="feed-img" id="shadow" src={props.imgUrl} alt={props.imgUrl} onClick={toggleShowModal} />
+      {
+        showModal &&
         <ImageModal
-          showModal={showModal}
-          closeModal={closeModal}
-          imgUrl={imgUrl}
+          toggleShowModal={toggleShowModal}
+          imgUrl={props.imgUrl}
           onFeedChange={props.onFeedChange}
           onSearch={props.onSearch}
         />
-      </div>
+      }
+    </div>
   );
 }
 

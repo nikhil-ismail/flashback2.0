@@ -13,6 +13,7 @@
 
 .sidebar {
     width: 20%;
+    min-width: 250px;
     height: 90vh;
     background-color: #c7eeff;
 }
@@ -40,4 +41,5 @@
     padding: 10px;
     margin-top: 10px;
     width: 40%;
+    text-align: center;
 }

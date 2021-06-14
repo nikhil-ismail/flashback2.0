@@ -1,11 +1,22 @@
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const handleSignin = (req, res, knex, bcrypt, jwt) => {
-    const {_email, _password} = req.body;
-
-    if (_email === '' || _password === '') {
-        return res.status(400).send("Empty field(s)");
+const knex = require('knex')({
+    client: 'pg',
+    connection: {
+        host: '127.0.0.1',
+        user: '',
+        password: '',
+        port: '5432',
+        database: 'yourspace'
     }
+});
+
+router.post('/signin', (req, res) => {
+    const {_email, _password} = req.body;
 
     knex('users').where({
         email: _email
@@ -34,9 +45,9 @@ const handleSignin = (req, res, knex, bcrypt, jwt) => {
         .catch(err => console.log(err))
     })
     .catch(err => console.log(err))
-}
+})
 
-const handleRegister = (req, res, knex, bcrypt) => {
+router.post('/register', (req, res) => {
     const {_name, _email, _password} = req.body;
 
     knex('users').where({
@@ -68,9 +79,6 @@ const handleRegister = (req, res, knex, bcrypt) => {
         }
     })
     .catch(err => console.log(err));
-}
+})
 
-module.exports = {
-	handleSignin,
-	handleRegister
-}
+module.exports = router;

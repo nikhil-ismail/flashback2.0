@@ -2,12 +2,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0,0,0,0.75); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.75);
 }
 
 .image-modal-card {
     position: fixed;
     width: 45%;
+    min-width: 500px;
     height: 85%;
     display: flex;
     justify-content: center;
@@ -32,16 +33,15 @@
 }
 
 .close-container {
-    position: fixed;
-    top: 5px;
-    right: 5px;
-}
-
-.upload-close {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: black;
-    background-color: white;
-    border: 0.25px solid white;
-    padding: 0.5rem;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: #ebebeb;
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
 }

@@ -31,7 +31,7 @@ const Register = (props) => {
         if (_name === '' || _email === '' || _password === '' || _confirmpassword === '') {
             setError(true);
         } else {
-            axios.post('http://localhost:5000/register', {_name, _email, _password, _confirmpassword})
+            axios.post('http://localhost:5000/account/register', {_name, _email, _password, _confirmpassword})
             .then(response => {
                 if (response.data === 'successful') {
                     console.log("User registered successfully");

@@ -21,7 +21,8 @@ const Signin = (props) => {
         if (_email === '' || _password === '') {
             setError(true);
         } else {
-            axios.post('http://localhost:5000/signin', {_email, _password})
+            console.log(_password);
+            axios.post('http://localhost:5000/account/signin', {_email, _password})
             .then(response => {
                 console.log(response.data);
                 if (response.data.auth) {

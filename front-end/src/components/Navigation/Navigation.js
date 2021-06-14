@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
+
 import Modal from '../Modal/Modal';
-import Upload from './upload.png';
 import './Navigation.css';
 
 const Navigation = (props) => {
@@ -42,10 +44,13 @@ const Navigation = (props) => {
                     onKeyPress={handleSearch}
                 />
                 <div className="upload-container" onClick={openModal}>
-                    <img src={Upload} className="upload" alt="upload" />
+                    <FontAwesomeIcon icon={faCloudUploadAlt} size="lg" className="delete" />
                 </div>
             </div>
-            <Modal onFeedChange={props.onFeedChange} showModal={showModal} closeModal={closeModal} />
+            {
+                showModal &&
+                <Modal onFeedChange={props.onFeedChange} closeModal={closeModal} />
+            }
         </div>       
     );
 }

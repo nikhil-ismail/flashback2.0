@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './ImageModal.css';
 import axios from 'axios';
 import EditModal from '../EditModal/EditModal';
@@ -7,93 +7,97 @@ import TagModal from '../TagModal/TagModal';
 const ImageModal = (props) => {
     const [editVisible, setEditVisible] = useState(false);
     const [favourite, setFavourite] = useState(null);
+    const [imageDetails, setImageDetails] = useState({});
 
-    const closeModal = (event) => {
-        props.closeModal();
+    const closeModal = () => {
+        props.toggleShowModal();
     }
 
-    const handleEdit = (event) => {
+    const handleEdit = () => {
         setEditVisible(true);
     }
 
-    const closeEdit = (event) => {
+    const closeEdit = () => {
         setEditVisible(false);
     }
 
     const handleDelete = event => {
         event.preventDefault();
-        console.log('here');
-        axios.delete(`http://localhost:5000/delete/${props.imgUrl.substring(30)}`, { headers: { 'authorization': localStorage.getItem("token") } })
-        .then(response => {
-            props.onFeedChange();
-            closeModal();
-        })
-        .catch(err => console.log(err));
+        axios.delete(`http://localhost:5000/photos/${props.imgUrl.substring(37)}`, { headers: { 'authorization': localStorage.getItem("token") } })
+            .then(() => {
+                props.onFeedChange();
+                closeModal();
+            })
+            .catch(err => console.log(err));
+    }
+
+    const toggleFavourite = () => {
+        axios.put(`http://localhost:5000/photos/favourite/${props.imgUrl.substring(37)}`, { favourite: !favourite }, { headers: { 'authorization': localStorage.getItem("token") } })
+            .then(() => {
+                setFavourite(!favourite)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    const handleSubmitEdit = ({ who, what, where, when }) => {
+        console.log(props.imgUrl);
+        axios.put(`http://localhost:5000/photos/details/${props.imgUrl.substring(37)}`, { who, what, where, when }, { headers: { 'authorization': localStorage.getItem("token") } })
+            .then(res => {
+                setImageDetails(res.data);
+                setEditVisible(false);
+                props.onFeedChange();
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/details/${props.imgUrl.substring(30)}`, { headers: { 'authorization': localStorage.getItem("token") } })
-        .then(response => {
-            setFavourite(response.data.favourite);
-        })
-        .catch(err => console.log(err));
-    })
+        axios.get(`http://localhost:5000/photos/details/${props.imgUrl.substring(37)}`, { headers: { 'authorization': localStorage.getItem("token") } })
+            .then(response => {
+                setImageDetails(response.data);
+                setFavourite(response.data.favourite);
+            })
+            .catch(err => console.log(err));
+    }, [])
 
-    const handleLove = (event) => {
-        event.preventDefault();
-        axios.put(`http://localhost:5000/favourite/${props.imgUrl.substring(30)}`, {favourite: !favourite}, { headers: { 'authorization': localStorage.getItem("token") } })
-        .then(res => {
-            setFavourite(!favourite)
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
-
-    if (props.showModal) {
-        return (
-            <div className="modal">
-                <div className="close-container">
-                    <input
-                        type="button"
-                        value="x"
-                        className="upload-close"
-                        onClick={closeModal}
+    return (
+        <div className="modal">
+            <div className="image-modal-card">
+                <p className="close-container" onClick={closeModal}>X</p>
+                <div className="image-container">
+                    <img
+                        className="img"
+                        onDoubleClick={toggleFavourite}
+                        alt="post"
+                        src={props.imgUrl}
                     />
                 </div>
-                <div className="image-modal-card">
-                    <div className="image-container">
-                        <img 
-                            className="img"
-                            onDoubleClick={handleLove}
-                            alt="post"
-                            src={props.imgUrl}
-                        />
-                    </div>
-                    {
-                        editVisible
+                {
+                    editVisible
                         ?
                         <EditModal
                             closeEdit={closeEdit}
+                            imageDetails={imageDetails}
                             onDelete={handleDelete}
-                            imgUrl={props.imgUrl}
+                            onSubmitEdit={handleSubmitEdit}
                         />
                         :
                         <TagModal
                             favourite={favourite}
-                            imgUrl={props.imgUrl}
-                            handleEdit={handleEdit}
+                            imageDetails={imageDetails}
+                            onEdit={handleEdit}
                             onDelete={handleDelete}
-                            onFeedChange={props.onFeedChange}
                             onSearch={props.onSearch}
+                            onToggleFavourite={toggleFavourite}
                             closeModal={props.closeModal}
                         />
-                    }
-                </div>
+                }
             </div>
-        );
-    }
-    return null;
+        </div>
+    );
 }
 
 export default ImageModal;
